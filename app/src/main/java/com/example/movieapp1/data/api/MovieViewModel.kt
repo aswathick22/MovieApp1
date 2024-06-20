@@ -1,31 +1,39 @@
 package com.example.movieapp1.data.api
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp1.data.movie.MovieId
+import com.example.movieapp1.data.movie.MovieDetails
 import com.example.movieapp1.data.movie.MovieResult
+import com.example.movieapp1.data.repository.MovieRepository
+import com.example.movieapp1.data.repository.NetworkState
 import kotlinx.coroutines.launch
 
 class MovieViewModel : ViewModel() {
-    private val _movieId = MutableLiveData<List<MovieId>>()
-    val movieId : MutableLiveData<List<MovieId>> get() = _movieId
-    private val _result = MutableLiveData<List<MovieResult>>()
-    val result : MutableLiveData<List<MovieResult>> get() = _result
+    private val _movieList = MutableLiveData<MovieResult>()
+    val movieList : MutableLiveData<MovieResult> get() = _movieList
+
+    private val _movieId = MutableLiveData<LiveData<MovieDetails>>()
+    val movieId : MutableLiveData<LiveData<MovieDetails>> get() = _movieId
+
+    private val _networkState = MutableLiveData<LiveData<NetworkState>>()
+    val networkState : MutableLiveData<LiveData<NetworkState>> get() = _networkState
 
     init{
+        val repository = MovieRepository(MovieDBClient.movieDBInterface)
         viewModelScope.launch {
-            getMovieId()
-        }
-        viewModelScope.launch{
-            getResult()
+            _movieList.value = repository.getMovieList()
         }
     }
 
-    private suspend fun getMovieId(){
-        _movieId.value = MovieDBClient.movieDBInterface.getMovieIds()
+    private suspend fun getMovieDetail(){
+        _movieId.value = MovieDBClient.movieDBInterface.getMovieDetails()
     }
-    private suspend fun getResult(){
+    /*private suspend fun getNetworkState(){
+        _networkState.value = MovieDBClient.movieDBInterface.getNetworkStates()
+    }*/
+   /* private suspend fun getResult(){
         _result.value = MovieDBClient.movieDBInterface.getResults()
-    }
+    }*/
 }

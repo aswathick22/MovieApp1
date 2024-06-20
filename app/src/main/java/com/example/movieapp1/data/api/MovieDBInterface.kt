@@ -1,16 +1,24 @@
 package com.example.movieapp1.data.api
 
-import com.example.movieapp1.data.movie.MovieId
+import androidx.lifecycle.LiveData
+import com.example.movieapp1.data.api.MovieDBClient.API_KEY
+import com.example.movieapp1.data.movie.MovieDetails
 import com.example.movieapp1.data.movie.MovieResult
 import retrofit2.http.GET
 
 interface MovieDBInterface {
 
     @GET("movie/{movie_id}")
-    suspend fun getMovieIds():List<MovieId>
+    suspend fun getMovieDetails(): LiveData<MovieDetails>
 
+    @GET("movie/now_playing?api_key=$API_KEY&language=en-US")
+    suspend fun getMovieLists() : MovieResult
+
+
+/*
     @GET("movie/{movie_id}")
     suspend fun getResults():List<MovieResult>
+*/
 
 }
 
