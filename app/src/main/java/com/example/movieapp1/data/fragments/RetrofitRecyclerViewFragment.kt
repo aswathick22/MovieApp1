@@ -1,4 +1,4 @@
-package com.example.movieapp1
+package com.example.movieapp1.data.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.movieapp1.R
 import com.example.movieapp1.data.api.MovieViewModel
 import com.example.movieapp1.data.api.MovieAdapter
 
@@ -29,7 +30,7 @@ class RetrofitRecyclerViewFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         mainViewModel.movieList.observe(viewLifecycleOwner){ items ->
-            recyclerView.adapter = MovieAdapter(items)
+            recyclerView.adapter = MovieAdapter(items.results)
         }
     }
 

@@ -7,17 +7,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp1.R
+import com.example.movieapp1.data.api.MovieDBClient.POSTER_BASE_URL
 import com.example.movieapp1.data.movie.MovieItem
+import com.squareup.picasso.Picasso
 
-class MovieAdapter(private val mList: MovieItem) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(private val mList: List<MovieItem>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_list, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val itemsViewModel = mList
-        holder.imageView1.getImageSouce = itemsViewModel.posterPath
+        val itemsViewModel = mList[position]
+        Picasso.get().load(POSTER_BASE_URL + itemsViewModel.posterPath).into(holder.imageView1);
         holder.textView1.text = itemsViewModel.title
         holder.textView2.text = itemsViewModel.releaseDate
     }

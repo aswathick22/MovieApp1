@@ -70,6 +70,8 @@ dependencies {
     implementation libs.retrofit.converter.moshi
     implementation libs.moshi
     implementation libs.moshi.kotlin
+    implementation libs.android.picasso
+    implementation libs.android.material
     implementation libs.okhttp.logging.interceptor
     //RecyclerView
     //GSON

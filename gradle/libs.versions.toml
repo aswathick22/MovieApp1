@@ -14,8 +14,8 @@ navigationRuntimeKtx = "2.7.7"
 retrofit = "2.9.0"
 moshi = "1.13.0"
 okhttp = "4.9.3"
-rxjava = "2.2.7"
-androidrxjava = "2.1.1"
+material = "1.9.0"
+picasso = "2.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +41,8 @@ retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+android-material = { group = "com.google.android.material", name = "material", version.ref = "material"}
+android-picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

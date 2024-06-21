@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/retrofitRecyclerViewFragment">
+    <fragment
+        android:id="@+id/retrofitRecyclerViewFragment"
+        android:name="com.example.movieapp1.data.fragments.RetrofitRecyclerViewFragment"
+        android:label="RetrofitRecyclerViewFragment" />
+    <activity
+        android:id="@+id/movieActivity"
+        android:name="com.example.movieapp1.data.activities.MovieActivity"
+        android:label="Movie" />
+</navigation>
