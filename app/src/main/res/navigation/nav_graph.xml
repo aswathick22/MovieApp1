@@ -9,4 +9,9 @@
         tools:layout="@layout/fragment_home"
         android:name="com.example.movieapp.fragments.home.HomeFragment"
         android:label="Movie App" />
+    <fragment
+        android:id="@+id/popularFragment"
+        tools:layout="@layout/fragment_popular_movie_list"
+        android:name="com.example.movieapp.fragments.popular.PopularFragment"
+        android:label="Popular Movies" />
 </navigation>
