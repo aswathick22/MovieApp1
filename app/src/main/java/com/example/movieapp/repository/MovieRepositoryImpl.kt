@@ -20,8 +20,4 @@ open class MovieRepositoryImpl(private val apiService : MovieRepository) : Movie
         return apiService.getPopularMovieLists()
     }
 
-    override suspend fun getPopularMovieDetails(): PopularMovieDetails {
-        return apiService.getPopularMovieDetails()
-    }
-
 }

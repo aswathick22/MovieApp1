@@ -18,9 +18,6 @@ interface MovieRepository {
     @GET("movie/popular?api_key=$API_KEY&language=en-US")
     suspend fun getPopularMovieLists() : PopularMovieList
 
-    @GET("movie/popular?api_key=$API_KEY&language=en-US")
-    suspend fun getPopularMovieDetails() : PopularMovieDetails
-
 }
 
 

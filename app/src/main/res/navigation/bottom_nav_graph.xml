@@ -12,7 +12,7 @@
     <fragment
         android:id="@+id/popularFragment"
         tools:layout="@layout/fragment_popular_movie_list"
-        android:name="com.example.movieapp.fragments.popular.PopularFragment"
+        android:name="com.example.movieapp.fragments.popular.PopularMovieListFragment"
         android:label="Popular" />
     <fragment
         android:id="@+id/accountFragment"

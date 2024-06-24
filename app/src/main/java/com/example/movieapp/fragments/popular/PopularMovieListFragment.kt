@@ -1,4 +1,4 @@
-package com.example.movieapp.fragments.movielist
+package com.example.movieapp.fragments.popular
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieapp.databinding.FragmentPopularMovieListBinding
-import com.example.movieapp.fragments.movielist.adapter.PopularMovieListAdapter
+import com.example.movieapp.fragments.popular.adapter.PopularMovieListAdapter
 
 class PopularMovieListFragment : Fragment() {
 
@@ -28,7 +28,7 @@ class PopularMovieListFragment : Fragment() {
 
         mainViewModel.popularMovieList.observe(viewLifecycleOwner) { items ->
             popularMovieListBinding.retrofitRecyclerview.apply {
-                layoutManager = GridLayoutManager(context,2)
+                layoutManager = GridLayoutManager(context, 2)
                 adapter = PopularMovieListAdapter(items.results)
             }
         }
