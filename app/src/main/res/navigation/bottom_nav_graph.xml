@@ -8,16 +8,34 @@
         android:id="@+id/movieListFragment"
         android:name="com.example.movieapp.fragments.movielist.MovieListFragment"
         android:label="Movie App"
-        tools:layout="@layout/fragment_movie_list" />
+        tools:layout="@layout/fragment_movie_list" >
+        <action
+            android:id="@+id/action_movieListFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/popularFragment"
         tools:layout="@layout/fragment_popular_movie_list"
         android:name="com.example.movieapp.fragments.popular.PopularMovieListFragment"
-        android:label="Popular" />
+        android:label="Popular" >
+        <action
+            android:id="@+id/action_popularFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         tools:layout="@layout/fragment_account"
         android:name="com.example.movieapp.fragments.account.AccountFragment"
         android:label="Account" />
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.movieapp.fragments.moviedetail.MovieDetailFragment"
+        tools:layout="@layout/fragment_movie_detail"
+        android:label="MovieDetailFragment" >
+        <argument
+            app:argType="integer"
+            android:name="movieId">
+        </argument>
+    </fragment>
 
 </navigation>

@@ -9,12 +9,5 @@
         tools:layout="@layout/fragment_home"
         android:name="com.example.movieapp.fragments.home.HomeFragment"
         android:label="Movie App" >
-        <action
-            android:id="@+id/action_homeFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/movieDetailFragment"
-        android:name="com.example.movieapp.fragments.moviedetail.MovieDetailFragment"
-        android:label="MovieDetailFragment" />
 </navigation>

@@ -16,6 +16,7 @@ moshi = "1.13.0"
 okhttp = "4.9.3"
 material = "1.9.0"
 picasso = "2.8"
+safeargs = "2.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,8 +44,9 @@ moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.re
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 android-material = { group = "com.google.android.material", name = "material", version.ref = "material"}
 android-picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso"}
+android-navigation-safeargs = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "safeargs"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+androidNavigationSafeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs"}

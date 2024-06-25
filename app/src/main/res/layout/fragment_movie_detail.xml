@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/inside_out_movie_image"
+        android:id="@+id/movie_image"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_gravity="center"
@@ -23,18 +23,18 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:textSize="30sp"
-        android:text="Inside Out 2"
+        android:text=""
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inside_out_movie_image"/>
+        app:layout_constraintTop_toBottomOf="@+id/movie_image"/>
 
     <TextView
         android:id="@+id/movie_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="20dp"
         android:textSize="15sp"
         android:text="en"
         android:textColor="@color/black"
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
         android:textSize="15sp"
         android:text="7.778"
         android:textColor="@color/black"
@@ -104,6 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
         android:text="2024-06-11"
         android:textColor="@color/black"
         android:textSize="15sp"

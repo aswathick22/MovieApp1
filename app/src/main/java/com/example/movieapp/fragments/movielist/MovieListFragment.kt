@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieListBinding
 import com.example.movieapp.fragments.movielist.adapter.MovieListAdapter
 
@@ -29,7 +31,9 @@ class MovieListFragment : Fragment() {
         mainViewModel.movieList.observe(viewLifecycleOwner) { items ->
             movieListBinding.retrofitRecyclerview.apply {
                 layoutManager = GridLayoutManager(context,2)
-                adapter = MovieListAdapter(items.results)
+                adapter = MovieListAdapter(items.results){
+                    findNavController().navigate(MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(it.id))
+                }
             }
         }
     }

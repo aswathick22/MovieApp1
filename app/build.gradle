@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.androidNavigationSafeArgs)
 }
 
 android {
@@ -35,11 +36,6 @@ android {
     }
     buildFeatures {
         viewBinding true
-        //noinspection DataBindingWithoutKapt
-        dataBinding true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.5.1'
     }
     packaging {
         resources {
@@ -61,6 +57,7 @@ dependencies {
     implementation libs.android.picasso
     implementation libs.android.material
     implementation libs.okhttp.logging.interceptor
+    implementation libs.android.navigation.safeargs
 
     //Unit Test Libraries
     testImplementation libs.junit

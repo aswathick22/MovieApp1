@@ -11,7 +11,7 @@ import com.example.movieapp.remote.api.MovieDBClient.POSTER_BASE_URL
 import com.example.movieapp.remote.data.PopularMovieDetails
 import com.squareup.picasso.Picasso
 
-class PopularMovieListAdapter(private val mList: List<PopularMovieDetails>) : RecyclerView.Adapter<PopularMovieListAdapter.ViewHolder>() {
+class PopularMovieListAdapter(private val mList: List<PopularMovieDetails>, private val onMovieItemClick : (PopularMovieDetails) -> Unit) : RecyclerView.Adapter<PopularMovieListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie_list, parent, false)
         return ViewHolder(view)
@@ -23,6 +23,7 @@ class PopularMovieListAdapter(private val mList: List<PopularMovieDetails>) : Re
             .placeholder(R.drawable.poster_placeholder)
             .noFade()
             .into(holder.imageView1)
+        holder.itemView.setOnClickListener { onMovieItemClick(itemsViewModel) }
         holder.textView1.text = itemsViewModel.title
         holder.textView2.text = itemsViewModel.releaseDate
     }

@@ -10,14 +10,17 @@ import kotlinx.coroutines.launch
 
 class MovieDetailViewModel : ViewModel() {
 
-    /*private val _movieDetail = MutableLiveData<MovieDetails>()
+    private val movieIdLiveData = MutableLiveData(0)
+
+    private val _movieDetail = MutableLiveData<MovieDetails>()
     val movieDetail : MutableLiveData<MovieDetails> get() = _movieDetail
 
-    init{
+    fun updateMovieId(movieId : Int){
+        movieIdLiveData.value = movieId
         val repository = MovieRepositoryImpl(MovieDBClient.movieDBInterface)
         viewModelScope.launch {
-            _movieDetail.value = repository.getPopularMovieLists()
+            _movieDetail.value = repository.getMovieDetails(movieIdLiveData.value?:0)
         }
-    }*/
+    }
 
 }

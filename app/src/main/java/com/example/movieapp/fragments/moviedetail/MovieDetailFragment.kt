@@ -6,39 +6,45 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
-import com.example.movieapp.fragments.moviedetail.adapter.MovieDetailAdapter
+import com.example.movieapp.remote.api.MovieDBClient
+import com.squareup.picasso.Picasso
 
 class MovieDetailFragment : Fragment() {
 
-    //private val mainViewModel by viewModels<MovieDetailViewModel>()
-    //private lateinit var MovieDetailBinding : FragmentMovieDetailBinding
+    private val mainViewModel by viewModels<MovieDetailViewModel>()
+    private lateinit var movieDetailBinding : FragmentMovieDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_movie_detail, container, false)
-
-        //MovieDetailBinding = FragmentMovieDetailBinding.inflate(inflater,container,false)
-        //return MovieDetailBinding.root
-
+        movieDetailBinding = FragmentMovieDetailBinding.inflate(inflater,container,false)
+        return movieDetailBinding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val movieId = arguments?.getInt("movieId")
+        mainViewModel.updateMovieId(movieId?:0)
+        mainViewModel.movieDetail.observe(viewLifecycleOwner) { moviedetails ->
+            Picasso.get().load(MovieDBClient.POSTER_BASE_URL + moviedetails.posterPath)
+                .placeholder(R.drawable.poster_placeholder)
+                .noFade()
+                .into(movieDetailBinding.movieImage)
+            movieDetailBinding.movieTitle.text = moviedetails.title
+            movieDetailBinding.movieRating.text = moviedetails.voteAverage.toString()
+            movieDetailBinding.movieDescription.text = moviedetails.overview
+            movieDetailBinding.movieLanguage.text = moviedetails.originalLanguage
+            movieDetailBinding.movieRuntime.text = moviedetails.runtime.toString()
+            movieDetailBinding.movieReleaseDate.text = moviedetails.runtime.toString()
+            }
     }
 }
 
-        /*mainViewModel.movieDetail.observe(viewLifecycleOwner) { items ->
-            movieDetailBinding.retrofitRecyclerview.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = MovieDetailAdapter(items.results)
-            }*/
+
 
 
 

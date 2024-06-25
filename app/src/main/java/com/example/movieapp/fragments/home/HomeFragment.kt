@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentHomeBinding
 import com.example.movieapp.fragments.movielist.MovieListFragment
+import com.example.movieapp.fragments.movielist.adapter.MovieListAdapter
 
 class HomeFragment : Fragment() {
 
@@ -20,8 +21,8 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        val action = HomeFragmentDirections.action_homeFragment_to_movieDetailFragment
-        findNavController().navigate(action)
+/*        val action = HomeFragmentDirections.action_homeFragment_to_movieDetailFragment
+        findNavController().navigate(action)*/
         homeBinding = FragmentHomeBinding.inflate(inflater,container,false)
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
