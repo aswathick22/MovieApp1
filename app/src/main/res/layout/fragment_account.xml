@@ -4,19 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background"
     tools:context=".activities.MovieActivity">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/account_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account Details"
+        android:textColor="@color/black"
+        android:layout_margin="20dp"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="73dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/profile_icon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_details" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/name_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_icon"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textStyle="italic"
+        android:textSize="15sp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toEndOf="@id/name_icon"
+        app:layout_constraintTop_toBottomOf="@+id/profile_icon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/mobile_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_text" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mobile_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mobile"
+        android:textStyle="italic"
+        android:textSize="15sp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toEndOf="@id/mobile_icon"
+        app:layout_constraintTop_toBottomOf="@id/name_text" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/mail_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/baseline_account_2_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_text" />
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/ms_font_style"
-        android:text="Account Fragment"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Email"
+        android:textStyle="italic"
+        android:textSize="15sp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toEndOf="@id/mobile_icon"
+        app:layout_constraintTop_toBottomOf="@id/mobile_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--android:src="@drawable/profile_icon"-->
+<!--android:src="@drawable/profile_icon"-->
+<!--android:src="@drawable/mail_icon"-->
+<!--android:background="@drawable/app_background"-->
+

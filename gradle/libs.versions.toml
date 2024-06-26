@@ -17,6 +17,7 @@ okhttp = "4.9.3"
 material = "1.9.0"
 picasso = "2.8"
 safeargs = "2.5.0"
+kapt = "2.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,3 +51,4 @@ android-navigation-safeargs = { group = "androidx.navigation", name = "navigatio
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidNavigationSafeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs"}
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt"}
