@@ -6,17 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentHomeBinding
-import com.example.movieapp.fragments.movielist.MovieListFragment
-import com.example.movieapp.fragments.movielist.adapter.MovieListAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeBinding : FragmentHomeBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -26,7 +23,18 @@ class HomeFragment : Fragment() {
         homeBinding = FragmentHomeBinding.inflate(inflater,container,false)
         val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
+        /*val bottomNavView = view?.findViewById<BottomNavigationView>(R.id.bottomNavigation)*/
         homeBinding.bottomNavigation.setupWithNavController(navController)
+        /*navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.welcomeFragment2, R.id.loginFragment, R.id.signupFragment -> {
+                    bottomNavView?.visibility = View.GONE
+                }
+                else -> {
+                    bottomNavView?.visibility = View.VISIBLE
+                }
+            }
+        }*/
         return homeBinding.root
     }
 

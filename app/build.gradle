@@ -59,6 +59,7 @@ dependencies {
     implementation libs.android.material
     implementation libs.okhttp.logging.interceptor
     implementation libs.android.navigation.safeargs
+    implementation libs.android.cardview
 
     //Unit Test Libraries
     testImplementation libs.junit

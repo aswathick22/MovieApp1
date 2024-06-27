@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentLoginBinding
@@ -50,7 +51,13 @@ class LoginFragment : Fragment() {
             loginViewModel.setUsername(loginBinding.etName.text.toString())
             loginViewModel.setPassword(loginBinding.etPassword.text.toString())
             loginViewModel.login()
-            findNavController().navigate(R.id.action_loginFragment_to_movieListFragment)
+            /*findNavController().navigate(R.id.action_loginFragment_to_movieListFragment)*/
+            loginViewModel.loginSuccess.observe(viewLifecycleOwner) { success ->
+                if (success){
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToHomeFragment())
+                    /*loginViewModel.loginSuccess.value = false*/
+                }
+            }
         }
     }
 }

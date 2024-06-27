@@ -31,10 +31,10 @@ class WelcomeFragment : Fragment() {
             print(it)
         }
         welcomeBinding.bnLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)
+            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToLoginFragment2())
         }
         welcomeBinding.bnSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment_to_signupFragment)
+            findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToSignupFragment2())
         }
     }
 

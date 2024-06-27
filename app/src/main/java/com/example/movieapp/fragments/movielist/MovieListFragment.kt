@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieListBinding
 import com.example.movieapp.fragments.movielist.adapter.MovieListAdapter
 

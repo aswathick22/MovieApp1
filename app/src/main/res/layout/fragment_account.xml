@@ -6,12 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activities.MovieActivity">
 
+    <!--<androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/purple_500" >-->
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Account Details"
         android:textColor="@color/black"
+        android:textStyle="bold"
         android:layout_margin="20dp"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,49 +26,71 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black"
+        android:background="@color/grey"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="73dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_icon" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/profile_icon"
         android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_marginTop="50dp"
-
+        android:src="@drawable/name_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/account_details" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_details"/>
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/name_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/name_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_icon"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="50dp" />
+        tools:ignore="NotSibling" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
-        android:textStyle="italic"
-        android:textSize="15sp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
+        android:text="username"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/name_icon"
-        app:layout_constraintTop_toBottomOf="@+id/profile_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_icon"
+        tools:ignore="NotSibling" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_text"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/mobile_icon"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="45dp"
+        android:src="@drawable/mobile_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_text" />
 
@@ -70,39 +98,75 @@
         android:id="@+id/mobile_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mobile"
-        android:textStyle="italic"
-        android:textSize="15sp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="48dp"
+        android:text="mobile"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/mobile_icon"
         app:layout_constraintTop_toBottomOf="@id/name_text" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="4dp"
+        android:background="@color/grey"
+        android:layout_marginTop="23dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mobile_text" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/mail_icon"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/baseline_account_2_24"
+        android:layout_width="45dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="44dp"
+        android:src="@drawable/mail_icon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_text" />
+        app:layout_constraintTop_toBottomOf="@+id/mobile_icon" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mail_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email"
-        android:textStyle="italic"
-        android:textSize="15sp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="44dp"
+        android:text="email"
+        android:textSize="20sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/mobile_icon"
         app:layout_constraintTop_toBottomOf="@id/mobile_text" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mail_text" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bn_logout"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="70dp"
+        android:text="Logout"
+        app:backgroundTint="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mail_text" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--android:src="@drawable/profile_icon"-->
 <!--android:src="@drawable/profile_icon"-->
-<!--android:src="@drawable/mail_icon"-->
+<!---->
 <!--android:background="@drawable/app_background"-->
 

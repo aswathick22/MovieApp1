@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/welcomeFragment">
+    app:startDestination="@id/movieListFragment">
     <fragment
         android:id="@+id/movieListFragment"
         android:name="com.example.movieapp.fragments.movielist.MovieListFragment"
@@ -36,36 +36,6 @@
             app:argType="integer"
             android:name="movieId">
         </argument>
-    </fragment>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.movieapp.fragments.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_movieListFragment"
-            app:destination="@id/movieListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/signupFragment"
-        android:name="com.example.movieapp.fragments.signup.SignupFragment"
-        android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
-        <action
-            android:id="@+id/action_signupFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.example.movieapp.fragments.welcome.WelcomeFragment"
-        android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
-        <action
-            android:id="@+id/action_welcomeFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_welcomeFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
     </fragment>
 
 </navigation>

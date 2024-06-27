@@ -52,7 +52,7 @@ class SignupFragment : Fragment() {
             signupViewModel.setUsername(signupBinding.etName.text.toString())
             signupViewModel.setPassword(signupBinding.etPassword.text.toString())
             signupViewModel.signup()
-            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+            findNavController().navigate(SignupFragmentDirections.actionSignupFragment2ToLoginFragment2())
         }
     }
 }

@@ -14,6 +14,12 @@ class LoginViewModel : ViewModel(){
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
+    private val validUsername = "aswathi@ck"
+    private val validPassword = "ack123"
+
+    private val _loginSuccess = MutableLiveData<Boolean>()
+    val loginSuccess: LiveData<Boolean> get() = _loginSuccess
+
     fun setUsername(username: String) {
         _username.value = username/*"aswathi@ck"*/
     }
@@ -28,13 +34,16 @@ class LoginViewModel : ViewModel(){
                 // Perform login operation
                 // If successful, clear the error message
                 _errorMessage.value = ""
+                _loginSuccess.value = true
             }
         } catch (e: Exception) {
             _errorMessage.value = e.message
+            _loginSuccess.value = false
         }
     }
 
     private fun validateInputs(): Boolean {
+
         val usernameValue = _username.value
         val passwordValue = _password.value
 
@@ -47,7 +56,7 @@ class LoginViewModel : ViewModel(){
         }
 
         // Add logic to check if username or password is incorrect
-        if (usernameValue != "expectedUsername" || passwordValue != "expectedPassword") {
+        if (usernameValue != validUsername || passwordValue != validPassword) {
             throw IllegalArgumentException("Incorrect username or password")
         }
 

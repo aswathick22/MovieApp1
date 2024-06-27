@@ -1,6 +1,7 @@
 package com.example.movieapp.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -18,8 +19,7 @@ class MovieActivity : AppCompatActivity() {
         activityMovieBinding = ActivityMovieBinding.inflate(layoutInflater)
         setContentView(activityMovieBinding.root)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.navHostFragmentContainerView) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
     }
