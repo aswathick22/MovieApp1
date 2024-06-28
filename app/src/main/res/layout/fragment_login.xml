@@ -33,15 +33,15 @@
         android:id="@+id/et_name_outer"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_margin="20dp"
         android:layout_marginTop="40dp"
         android:hint="Enter Name"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
         app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopStart="20dp"
         app:layout_constraintBottom_toTopOf="@+id/textView1"
         app:layout_constraintEnd_toEndOf="@+id/outer_box"
         app:layout_constraintStart_toStartOf="@id/outer_box"
@@ -58,13 +58,13 @@
         android:id="@+id/et_password_outer"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_margin="20dp"
         android:hint="Enter Password"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,3 +101,10 @@
 <!--</layout>-->
 
 <!--@{loginViewModel.nameValue2}-->
+
+    <!--app:boxCornerRadiusBottomEnd="20dp"
+    app:boxCornerRadiusBottomStart="20dp"
+    app:boxCornerRadiusTopEnd="20dp"
+    app:boxCornerRadiusTopStart="20dp"-->
+
+    <!--app:endIconMode="password_toggle"-->

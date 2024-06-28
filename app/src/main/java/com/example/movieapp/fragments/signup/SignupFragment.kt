@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentSignupBinding
+import com.example.movieapp.fragments.login.LoginFragmentDirections
 
 class SignupFragment : Fragment() {
 
@@ -52,7 +53,12 @@ class SignupFragment : Fragment() {
             signupViewModel.setUsername(signupBinding.etName.text.toString())
             signupViewModel.setPassword(signupBinding.etPassword.text.toString())
             signupViewModel.signup()
-            findNavController().navigate(SignupFragmentDirections.actionSignupFragment2ToLoginFragment2())
+            signupViewModel.signupSuccess.observe(viewLifecycleOwner) { success ->
+                if (success){
+                    findNavController().navigate(SignupFragmentDirections.actionSignupFragment2ToLoginFragment2())
+                    /*loginViewModel.loginSuccess.value = false*/
+                }
+            }
         }
     }
 }

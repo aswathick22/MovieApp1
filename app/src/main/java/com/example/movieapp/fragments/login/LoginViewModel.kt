@@ -16,6 +16,8 @@ class LoginViewModel : ViewModel(){
 
     private val validUsername = "aswathi@ck"
     private val validPassword = "ack123"
+    private val validPhoneNo = "6282659925"
+    private val validEmail = "aswathick@gmail.com"
 
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess: LiveData<Boolean> get() = _loginSuccess

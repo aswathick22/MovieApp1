@@ -22,8 +22,8 @@ open class MovieRepositoryImpl(private val apiService : MovieRepository) : Movie
         return apiService.getPopularMovieLists()
     }
 
-    override suspend fun getCastList(): MovieCastList {
-        return apiService.getCastList()
+    override suspend fun getCastList(movieId: Int): MovieCastList {
+        return apiService.getCastList(movieId)
     }
 
 }

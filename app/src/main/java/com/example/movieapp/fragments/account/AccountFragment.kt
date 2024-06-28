@@ -15,7 +15,7 @@ import com.example.movieapp.fragments.signup.SignupViewModel
 class AccountFragment : Fragment() {
 
     private lateinit var accountBinding : FragmentAccountBinding
-    /*private val accountViewModel by viewModels<AccountViewModel>()*/
+    private val accountViewModel by viewModels<AccountViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -26,6 +26,15 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        accountViewModel.username.observe(viewLifecycleOwner){username ->
+            accountBinding.nameText.text = username
+        }
+        accountViewModel.phone.observe(viewLifecycleOwner){phone ->
+            accountBinding.mobileText.text = phone
+        }
+        accountViewModel.email.observe(viewLifecycleOwner){email ->
+            accountBinding.mailText.text = email
+        }
         accountBinding.bnLogout.setOnClickListener {
             //findNavController().navigate(R.id.action_accountFragment_to_loginFragment)
         }

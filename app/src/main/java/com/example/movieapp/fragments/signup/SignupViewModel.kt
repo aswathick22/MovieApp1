@@ -14,6 +14,9 @@ class SignupViewModel : ViewModel(){
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
+    private val _signupSuccess = MutableLiveData<Boolean>()
+    val signupSuccess: LiveData<Boolean> get() = _signupSuccess
+
     fun setUsername(username: String) {
         _username.value = username
     }
@@ -28,9 +31,11 @@ class SignupViewModel : ViewModel(){
                 // Perform signup operation
                 // If successful, clear the error message
                 _errorMessage.value = ""
+                _signupSuccess.value = true
             }
         } catch (e: Exception) {
             _errorMessage.value = e.message
+            _signupSuccess.value = false
         }
     }
 

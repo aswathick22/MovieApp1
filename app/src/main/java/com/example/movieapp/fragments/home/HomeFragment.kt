@@ -25,21 +25,12 @@ class HomeFragment : Fragment() {
         val navController = navHostFragment.navController
         /*val bottomNavView = view?.findViewById<BottomNavigationView>(R.id.bottomNavigation)*/
         homeBinding.bottomNavigation.setupWithNavController(navController)
-        /*navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.welcomeFragment2, R.id.loginFragment, R.id.signupFragment -> {
-                    bottomNavView?.visibility = View.GONE
-                }
-                else -> {
-                    bottomNavView?.visibility = View.VISIBLE
-                }
-            }
-        }*/
+
         return homeBinding.root
     }
 
-    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }*/
+    }
 
 }

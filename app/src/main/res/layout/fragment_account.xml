@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.MovieActivity">
 
-    <!--<androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/purple_500" >-->
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_details"
         android:layout_width="wrap_content"
@@ -68,12 +63,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
-        android:text="username"
+        android:text="@{accountViewModel.username}"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/name_icon"
         app:layout_constraintTop_toBottomOf="@+id/profile_icon"
         tools:ignore="NotSibling" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/edit_name_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/edit_icon"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_icon"
+        tools:ignore="NotSibling"
+        android:focusable="true" />
 
     <View
         android:layout_width="match_parent"
@@ -100,11 +108,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="48dp"
-        android:text="mobile"
+        android:text="@{accountViewModel.phone}"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/mobile_icon"
         app:layout_constraintTop_toBottomOf="@id/name_text" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/edit_phone_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/edit_icon"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_name_icon"
+        tools:ignore="NotSibling"
+        android:focusable="true" />
 
     <View
         android:layout_width="match_parent"
@@ -132,11 +153,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="44dp"
-        android:text="email"
+        android:text="@{accountViewModel.email}"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/mobile_icon"
         app:layout_constraintTop_toBottomOf="@id/mobile_text" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/edit_mail_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/edit_icon"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_phone_icon"
+        tools:ignore="NotSibling"
+        android:focusable="true" />
 
     <View
         android:layout_width="match_parent"

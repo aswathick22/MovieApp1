@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentLoginBinding
+import com.example.movieapp.fragments.home.HomeFragment
 
 class LoginFragment : Fragment() {
     private val loginViewModel by viewModels<LoginViewModel>()
@@ -30,6 +31,7 @@ class LoginFragment : Fragment() {
         }*/
         return loginBinding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

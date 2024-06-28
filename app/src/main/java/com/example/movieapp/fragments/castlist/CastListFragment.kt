@@ -27,14 +27,16 @@ class CastListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val movieId = arguments?.getInt("movieId")
+        castViewModel.updateMovieId(movieId?:0)
         castViewModel.castList.observe(viewLifecycleOwner) { items ->
             castListBinding.retrofitRecyclerview.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                recyclerView.layoutManager = layoutManager
+                /*recyclerView.layoutManager = layoutManager*/
                 adapter = CastListAdapter(items.cast) { item ->
                     findNavController().navigate(item.id)
                 }
-                recyclerView.adapter = adapter
+                /*recyclerView.adapter = adapter*/
             }
         }
     }

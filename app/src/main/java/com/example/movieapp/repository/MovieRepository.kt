@@ -21,7 +21,7 @@ interface MovieRepository {
     suspend fun getPopularMovieLists() : PopularMovieList
 
     @GET("movie/{movie_id}/credits?api_key=$API_KEY&language=en-US")
-    suspend fun getCastList() : MovieCastList
+    suspend fun getCastList(@Path("movie_id") movieId : Int) : MovieCastList
 }
 
 
