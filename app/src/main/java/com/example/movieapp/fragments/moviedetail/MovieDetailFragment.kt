@@ -6,29 +6,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
+import com.example.movieapp.fragments.moviedetail.adapter.CastListAdapter
 import com.example.movieapp.remote.api.MovieDBClient
 import com.squareup.picasso.Picasso
 
 class MovieDetailFragment : Fragment() {
 
     private val mainViewModel by viewModels<MovieDetailViewModel>()
-    private lateinit var movieDetailBinding : FragmentMovieDetailBinding
+    private lateinit var movieDetailBinding: FragmentMovieDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        movieDetailBinding = FragmentMovieDetailBinding.inflate(inflater,container,false)
+        movieDetailBinding = FragmentMovieDetailBinding.inflate(inflater, container, false)
         return movieDetailBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieId = arguments?.getInt("movieId")
-        mainViewModel.updateMovieId(movieId?:0)
+        mainViewModel.updateMovieId(movieId ?: 0)
         mainViewModel.movieDetail.observe(viewLifecycleOwner) { moviedetails ->
             Picasso.get().load(MovieDBClient.POSTER_BASE_URL + moviedetails.posterPath)
                 .placeholder(R.drawable.poster_placeholder)
@@ -40,7 +43,16 @@ class MovieDetailFragment : Fragment() {
             movieDetailBinding.movieLanguage.text = moviedetails.originalLanguage
             movieDetailBinding.movieRuntime.text = moviedetails.runtime.toString()
             movieDetailBinding.movieReleaseDate.text = moviedetails.runtime.toString()
+        }
+        mainViewModel.castList.observe(viewLifecycleOwner) { items ->
+            movieDetailBinding.retrofitRecyclerview.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                /*recyclerView.layoutManager = layoutManager*/
+                adapter = CastListAdapter(items.cast) {
+                    findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToCastDetailFragment(it.id))
+                }
             }
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.movieapp.fragments.castlist.adapter
+package com.example.movieapp.fragments.moviedetail.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +20,14 @@ class CastListAdapter(private val mList: List<Cast>, private val onCastItemClick
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemsViewModel = mList[position]
-        Picasso.get().load(POSTER_BASE_URL + itemsViewModel.profilePath)
+        val profilePath = itemsViewModel.profilePath
+        val imageUrl = if (profilePath.isNullOrEmpty()) {
+            R.drawable.poster_placeholder.toString()
+        } else {
+            POSTER_BASE_URL + profilePath
+        }
+
+        Picasso.get().load(imageUrl/*POSTER_BASE_URL + itemsViewModel.profilePath*/)
             .placeholder(R.drawable.poster_placeholder)
             .noFade()
             .into(holder.imageView)

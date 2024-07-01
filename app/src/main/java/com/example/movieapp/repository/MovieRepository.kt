@@ -2,6 +2,7 @@ package com.example.movieapp.repository
 
 import com.example.movieapp.remote.api.MovieDBClient.API_KEY
 import com.example.movieapp.remote.data.Cast
+import com.example.movieapp.remote.data.MovieCastDetails
 import com.example.movieapp.remote.data.MovieCastList
 import com.example.movieapp.remote.data.MovieDetails
 import com.example.movieapp.remote.data.MovieResult
@@ -22,6 +23,9 @@ interface MovieRepository {
 
     @GET("movie/{movie_id}/credits?api_key=$API_KEY&language=en-US")
     suspend fun getCastList(@Path("movie_id") movieId : Int) : MovieCastList
+
+    @GET("person/{person_id}?api_key=$API_KEY&language=en-US")
+    suspend fun getCastDetails(@Path("person_id") personId : Int) : MovieCastDetails
 }
 
 

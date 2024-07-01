@@ -36,6 +36,17 @@
             app:argType="integer"
             android:name="movieId">
         </argument>
+        <action
+            android:id="@+id/action_movieDetailFragment_to_castDetailFragment"
+            app:destination="@id/castDetailFragment" />
     </fragment>
-
+    <fragment
+        android:id="@+id/castDetailFragment"
+        android:name="com.example.movieapp.fragments.castdetail.CastDetailFragment"
+        android:label="CastDetailFragment" >
+        <argument
+            app:argType="integer"
+            android:name="personId">
+        </argument>
+    </fragment>
 </navigation>
