@@ -31,7 +31,7 @@
         android:id="@+id/movieDetailFragment"
         android:name="com.example.movieapp.fragments.moviedetail.MovieDetailFragment"
         tools:layout="@layout/fragment_movie_detail"
-        android:label="MovieDetailFragment" >
+        android:label="Movie Details" >
         <argument
             app:argType="integer"
             android:name="movieId">
@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/castDetailFragment"
         android:name="com.example.movieapp.fragments.castdetail.CastDetailFragment"
-        android:label="CastDetailFragment" >
+        android:label="Cast Details" >
         <argument
             app:argType="integer"
             android:name="personId">

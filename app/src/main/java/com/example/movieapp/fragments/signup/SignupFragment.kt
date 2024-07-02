@@ -8,13 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.movieapp.R
+import com.example.movieapp.database.DatabaseHandler
 import com.example.movieapp.databinding.FragmentSignupBinding
-import com.example.movieapp.fragments.login.LoginFragmentDirections
 
 class SignupFragment : Fragment() {
 
     private lateinit var signupBinding: FragmentSignupBinding
+    private lateinit var dbHandler: DatabaseHandler
     private val signupViewModel by viewModels<SignupViewModel>()
 
     override fun onCreateView(
@@ -28,6 +28,7 @@ class SignupFragment : Fragment() {
         binding.bnSubmit.setOnClickListener {
             findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
         }*/
+        dbHandler = DatabaseHandler(requireContext())
         return signupBinding.root
     }
 
@@ -52,9 +53,22 @@ class SignupFragment : Fragment() {
         signupBinding.bnSubmit.setOnClickListener {
             signupViewModel.setUsername(signupBinding.etName.text.toString())
             signupViewModel.setPassword(signupBinding.etPassword.text.toString())
-            signupViewModel.signup()
+            signupViewModel.setPhone(signupBinding.etPhone.text.toString())
+            signupViewModel.setEmail(signupBinding.etEmail.text.toString())
+            signupViewModel.signup(dbHandler)
+            /*if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
+            } else {
+                val result = dbHandler.insertUser(username, password)
+                if (result > -1) {
+                    Toast.makeText(requireContext(), "Signup successful", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Signup failed", Toast.LENGTH_SHORT).show()
+                }
+            }*/
             signupViewModel.signupSuccess.observe(viewLifecycleOwner) { success ->
                 if (success){
+                    Toast.makeText(requireContext(), "Signup successful", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(SignupFragmentDirections.actionSignupFragment2ToLoginFragment2())
                     /*loginViewModel.loginSuccess.value = false*/
                 }

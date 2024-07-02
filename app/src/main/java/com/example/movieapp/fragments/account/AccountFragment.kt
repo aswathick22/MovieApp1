@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
+import com.example.movieapp.database.DatabaseHandler
 import com.example.movieapp.databinding.FragmentAccountBinding
 import com.example.movieapp.fragments.signup.SignupViewModel
 
 class AccountFragment : Fragment() {
 
     private lateinit var accountBinding : FragmentAccountBinding
+    private lateinit var databaseHandler: DatabaseHandler
     private val accountViewModel by viewModels<AccountViewModel>()
 
     override fun onCreateView(

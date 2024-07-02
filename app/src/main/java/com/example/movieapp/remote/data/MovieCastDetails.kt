@@ -11,13 +11,13 @@ data class MovieCastDetails(
     @Json(name = "also_known_as")
     val alsoKnownAs: List<String>,
     @Json(name = "biography")
-    val biography: String,
+    val biography: String?,
     @Json(name = "birthday")
-    val birthday: String,
+    val birthday: String?,
     @Json(name = "deathday")
     val deathday: Any?,
     @Json(name = "gender")
-    val gender: Int,
+    val gender: Int?,
     @Json(name = "homepage")
     val homepage: Any?,
     @Json(name = "id")
@@ -25,11 +25,11 @@ data class MovieCastDetails(
     @Json(name = "imdb_id")
     val imdbId: String,
     @Json(name = "known_for_department")
-    val knownForDepartment: String,
+    val knownForDepartment: String?,
     @Json(name = "name")
-    val name: String,
+    val name: String?,
     @Json(name = "place_of_birth")
-    val placeOfBirth: String,
+    val placeOfBirth: String?,
     @Json(name = "popularity")
     val popularity: Double,
     @Json(name = "profile_path")

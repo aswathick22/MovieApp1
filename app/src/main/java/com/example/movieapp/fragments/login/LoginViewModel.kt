@@ -3,8 +3,12 @@ package com.example.movieapp.fragments.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.movieapp.database.DatabaseHandler
 
 class LoginViewModel : ViewModel(){
+
+    private val loginResult: MutableLiveData<Boolean> = MutableLiveData()
+
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> get() = _username
 
@@ -14,10 +18,10 @@ class LoginViewModel : ViewModel(){
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
-    private val validUsername = "aswathi@ck"
+    /*private val validUsername = "aswathi@ck"
     private val validPassword = "ack123"
     private val validPhoneNo = "6282659925"
-    private val validEmail = "aswathick@gmail.com"
+    private val validEmail = "aswathick@gmail.com"*/
 
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess: LiveData<Boolean> get() = _loginSuccess
@@ -30,11 +34,13 @@ class LoginViewModel : ViewModel(){
         _password.value = password/*"ack123"*/
     }
 
-    fun login() {
+    fun login(dbHandler : DatabaseHandler) {
         try {
             if (validateInputs()) {
                 // Perform login operation
                 // If successful, clear the error message
+                val isUserExist = dbHandler.readUser(username.value?:"", password.value.orEmpty())
+                loginResult.value = isUserExist
                 _errorMessage.value = ""
                 _loginSuccess.value = true
             }
@@ -58,7 +64,7 @@ class LoginViewModel : ViewModel(){
         }
 
         // Add logic to check if username or password is incorrect
-        if (usernameValue != validUsername || passwordValue != validPassword) {
+        if (usernameValue.isEmpty() || passwordValue.isEmpty()) {
             throw IllegalArgumentException("Incorrect username or password")
         }
 

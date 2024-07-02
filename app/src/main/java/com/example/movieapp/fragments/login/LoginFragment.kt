@@ -1,5 +1,6 @@
 package com.example.movieapp.fragments.login
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
+import com.example.movieapp.database.DatabaseHandler
 import com.example.movieapp.databinding.FragmentLoginBinding
 import com.example.movieapp.fragments.home.HomeFragment
 
 class LoginFragment : Fragment() {
+
     private val loginViewModel by viewModels<LoginViewModel>()
+    private lateinit var dbHandler: DatabaseHandler
     private lateinit var loginBinding : FragmentLoginBinding
 
     override fun onCreateView(
@@ -29,6 +33,7 @@ class LoginFragment : Fragment() {
         loginBinding.bnLogin.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
         }*/
+        dbHandler = DatabaseHandler(requireContext())
         return loginBinding.root
     }
 
@@ -52,10 +57,11 @@ class LoginFragment : Fragment() {
         loginBinding.bnLogin.setOnClickListener {
             loginViewModel.setUsername(loginBinding.etName.text.toString())
             loginViewModel.setPassword(loginBinding.etPassword.text.toString())
-            loginViewModel.login()
+            loginViewModel.login(dbHandler)
             /*findNavController().navigate(R.id.action_loginFragment_to_movieListFragment)*/
             loginViewModel.loginSuccess.observe(viewLifecycleOwner) { success ->
                 if (success){
+                    Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToHomeFragment())
                     /*loginViewModel.loginSuccess.value = false*/
                 }

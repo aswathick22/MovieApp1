@@ -24,14 +24,20 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/cast_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
+            android:layout_marginEnd="15dp"
             android:text="Name"
+            android:ellipsize="middle"
+            android:maxLines="2"
+            android:maxWidth="300dp"
             android:textSize="30sp"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/cast_image"
+            app:layout_constraintTop_toTopOf="@id/cast_image"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="20dp" />
 
@@ -111,12 +117,17 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/cast_place_of_birth"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
+            android:layout_marginEnd="15dp"
             android:text="A,B,C"
+            android:ellipsize="middle"
+            android:maxLines="2"
+            android:maxWidth="300dp"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/cast_image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/place_of_birth_text" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -128,7 +139,7 @@
             android:textStyle="bold"
             android:textColor="@color/grey"
             android:textSize="25sp"
-            app:layout_constraintStart_toStartOf="@id/cast_image"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cast_image" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -139,9 +150,14 @@
             android:textColor="@color/grey"
             android:textSize="15sp"
             android:layout_margin="20dp"
-            app:layout_constraintStart_toStartOf="@id/biography_text"
-            app:layout_constraintTop_toBottomOf="@id/biography_text" />
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/biography_text"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+
+    <!--app:flow_wrapMode="aligned"-->
