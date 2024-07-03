@@ -2,11 +2,13 @@ package com.example.movieapp.repository
 
 import com.example.movieapp.remote.api.MovieDBClient.API_KEY
 import com.example.movieapp.remote.data.Cast
+import com.example.movieapp.remote.data.LatestMovieList
 import com.example.movieapp.remote.data.MovieCastDetails
 import com.example.movieapp.remote.data.MovieCastList
 import com.example.movieapp.remote.data.MovieDetails
 import com.example.movieapp.remote.data.MovieResult
 import com.example.movieapp.remote.data.PopularMovieList
+import com.example.movieapp.remote.data.UpcomingMovieList
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -26,6 +28,12 @@ interface MovieRepository {
 
     @GET("person/{person_id}?api_key=$API_KEY&language=en-US")
     suspend fun getCastDetails(@Path("person_id") personId : Int) : MovieCastDetails
+
+    @GET("movie/top_rated?api_key=$API_KEY&language=en-US")
+    suspend fun getTopRatedMovieList() : MovieResult
+
+    @GET("movie/upcoming?api_key=$API_KEY&language=en-US")
+    suspend fun getUpcomingMovieList() : MovieResult
 }
 
 

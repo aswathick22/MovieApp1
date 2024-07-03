@@ -5,11 +5,13 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class MovieResult(
+data class UpcomingMovieList(
+    @Json(name = "dates")
+    val dates: DatesX,
     @Json(name = "page")
     val page: Int,
     @Json(name = "results")
-    val results: List<MovieItem>,
+    val results: List<ResultX>,
     @Json(name = "total_pages")
     val totalPages: Int,
     @Json(name = "total_results")
