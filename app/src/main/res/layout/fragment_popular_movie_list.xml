@@ -7,12 +7,36 @@
     android:background="@drawable/app_background"
     tools:context=".activities.MovieActivity">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tv_search_input"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toTopOf="@id/retrofit_recyclerview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_popular_movies" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tv_search_popular_movies"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:hint="Search"
+            android:layout_margin="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:hintTextColor="@color/grey"
+            app:layout_constraintBottom_toTopOf="@id/retrofit_recyclerview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/retrofit_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_movie_list"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_search_popular_movies"
+        tools:listitem="@layout/item_movie_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

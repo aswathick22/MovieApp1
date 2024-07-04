@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentPopularMovieListBinding
+import com.example.movieapp.fragments.movielist.MovieListFragmentDirections
 import com.example.movieapp.fragments.popular.adapter.PopularMovieListAdapter
 
 class PopularMovieListFragment : Fragment() {
@@ -33,6 +34,23 @@ class PopularMovieListFragment : Fragment() {
                 layoutManager = GridLayoutManager(context, 2)
                 adapter = PopularMovieListAdapter(items.results) {
                     findNavController().navigate(PopularMovieListFragmentDirections.actionPopularFragmentToMovieDetailFragment(it.id))
+                }
+            }
+        }
+
+        popularMovieListBinding.tvSearchPopularMovies.addTextChangedListener{
+            if(it.toString().isNotEmpty()){
+                popularMovieListBinding.retrofitRecyclerview.visibility = View.GONE
+                mainViewModel.getPopularSearchResults(it.toString())
+            }
+        }
+
+        mainViewModel.popularSearchResults.observe(viewLifecycleOwner) { items ->
+            popularMovieListBinding.retrofitRecyclerview.apply {
+                popularMovieListBinding.retrofitRecyclerview.visibility = View.VISIBLE
+                layoutManager = GridLayoutManager(context,2)
+                adapter = PopularMovieListAdapter(items.results){
+                    findNavController().navigate(MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(it.id))
                 }
             }
         }

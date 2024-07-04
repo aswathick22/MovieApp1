@@ -6,11 +6,13 @@ import com.example.movieapp.remote.data.LatestMovieList
 import com.example.movieapp.remote.data.MovieCastDetails
 import com.example.movieapp.remote.data.MovieCastList
 import com.example.movieapp.remote.data.MovieDetails
+import com.example.movieapp.remote.data.MovieItem
 import com.example.movieapp.remote.data.MovieResult
 import com.example.movieapp.remote.data.PopularMovieList
 import com.example.movieapp.remote.data.UpcomingMovieList
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MovieRepository {
 
@@ -34,6 +36,12 @@ interface MovieRepository {
 
     @GET("movie/upcoming?api_key=$API_KEY&language=en-US")
     suspend fun getUpcomingMovieList() : MovieResult
+
+    @GET("search/movie?api_key=$API_KEY&language=en-US")
+    suspend fun getAllSearchResults(@Query("query") title : String) : MovieResult
+
+    @GET("search/movie?api_key=$API_KEY&language=en-US")
+    suspend fun getPopularSearchResults(@Query("query") title : String) : PopularMovieList
 }
 
 

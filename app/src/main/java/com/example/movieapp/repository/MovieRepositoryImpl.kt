@@ -1,12 +1,10 @@
 package com.example.movieapp.repository
 
-import com.example.movieapp.remote.data.LatestMovieList
 import com.example.movieapp.remote.data.MovieCastDetails
 import com.example.movieapp.remote.data.MovieCastList
 import com.example.movieapp.remote.data.MovieDetails
 import com.example.movieapp.remote.data.MovieResult
 import com.example.movieapp.remote.data.PopularMovieList
-import com.example.movieapp.remote.data.UpcomingMovieList
 
 
 open class MovieRepositoryImpl(private val apiService : MovieRepository) : MovieRepository{
@@ -37,6 +35,14 @@ open class MovieRepositoryImpl(private val apiService : MovieRepository) : Movie
 
     override suspend fun getUpcomingMovieList(): MovieResult {
         return apiService.getUpcomingMovieList()
+    }
+
+    override suspend fun getAllSearchResults(title: String): MovieResult {
+        return apiService.getAllSearchResults(title)
+    }
+
+    override suspend fun getPopularSearchResults(title: String): PopularMovieList {
+        return apiService.getPopularSearchResults(title)
     }
 
 }

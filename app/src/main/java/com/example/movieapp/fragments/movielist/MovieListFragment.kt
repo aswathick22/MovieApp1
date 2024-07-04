@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -39,51 +40,54 @@ class MovieListFragment : Fragment() {
             }
         }
 
-        if (mainViewModel.topRatedApplied && mainViewModel.upcomingApplied) {
-            movieListBinding.tvAllMovies.isEnabled = true
-        } else {
-            movieListBinding.tvAllMovies.isEnabled = false
+        movieListBinding.tvSearchAllMovies.addTextChangedListener{
+            if(it.toString().isNotEmpty())
+            {
+                movieListBinding.retrofitRecyclerview.visibility = View.GONE
+                mainViewModel.getAllSearchResults(it.toString())
+            }
+        }
+
+        mainViewModel.allSearchResults.observe(viewLifecycleOwner) { items ->
+            movieListBinding.retrofitRecyclerview.apply {
+                movieListBinding.retrofitRecyclerview.visibility = View.VISIBLE
+                layoutManager = GridLayoutManager(context,2)
+                adapter = MovieListAdapter(items.results){
+                    findNavController().navigate(MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(it.id))
+                }
+            }
         }
 
         mainViewModel.filterClicked.observe(viewLifecycleOwner) {
             when(it){
+                0 -> {
+                    movieListBinding.tvAllMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
+                    movieListBinding.tvTopRatedMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
+                    movieListBinding.tvUpcomingMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
+                }
                 1 -> {
-                    /*movieListBinding.tvAllMovies.setBackgroundColor(resources.getColor(R.color.black))*/
+                    movieListBinding.tvAllMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
                     movieListBinding.tvTopRatedMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
                     movieListBinding.tvUpcomingMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
-                    if (mainViewModel.topRatedApplied && mainViewModel.upcomingApplied) {
-                        movieListBinding.tvAllMovies.isEnabled = true
-                        movieListBinding.tvAllMovies.setBackgroundColor(
-                            ContextCompat.getColor(requireContext(), R.color.black)
-                        )
-                    }
                 }
                 2 -> {
-                    movieListBinding.tvAllMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey))
+                    movieListBinding.tvAllMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
                     movieListBinding.tvTopRatedMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
                     movieListBinding.tvUpcomingMovies.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
-                    movieListBinding.tvAllMovies.isEnabled = false
                 }
-                /*3 -> {
-                    movieListBinding.tvAllMovies.setBackgroundColor(resources.getColor(R.color.grey))
-                }*/
             }
         }
 
         movieListBinding.tvAllMovies.setOnClickListener{
-            mainViewModel.filterClicked.value = 2
-            mainViewModel.topRatedApplied = true
-            mainViewModel.upcomingApplied = true
-            movieListBinding.tvAllMovies.setBackgroundColor(
-                ContextCompat.getColor(requireContext(), R.color.black)
-            )
-            movieListBinding.retrofitRecyclerview.visibility = View.GONE
-            mainViewModel.getAllMoviesList()
+            mainViewModel.filterClicked.value = 0
+            movieListBinding.tvSearchAllMovies.setText("")
+            movieListBinding.retrofitRecyclerview.visibility = View.VISIBLE
+            mainViewModel.getAllMovieLists()
         }
 
         movieListBinding.tvTopRatedMovies.setOnClickListener{
             mainViewModel.filterClicked.value = 1
-            mainViewModel.topRatedApplied = true
+            movieListBinding.tvSearchAllMovies.setText("")
             movieListBinding.retrofitRecyclerview.visibility = View.GONE
             mainViewModel.getTopRatedMoviesList()
         }
@@ -100,7 +104,7 @@ class MovieListFragment : Fragment() {
 
         movieListBinding.tvUpcomingMovies.setOnClickListener{
             mainViewModel.filterClicked.value = 2
-            mainViewModel.upcomingApplied = true
+            movieListBinding.tvSearchAllMovies.setText("")
             movieListBinding.retrofitRecyclerview.visibility = View.GONE
             mainViewModel.getUpcomingMoviesList()
         }

@@ -22,17 +22,14 @@ class MovieListViewModel : ViewModel() {
 
     val filterClicked = MutableLiveData(0)
 
-    var topRatedApplied = false
-    var upcomingApplied = false
+    private val _allSearchResults = MutableLiveData<MovieResult>()
+    val allSearchResults : MutableLiveData<MovieResult> get() = _allSearchResults
 
     init{
-        val repository = MovieRepositoryImpl(MovieDBClient.movieDBInterface)
-        viewModelScope.launch {
-            _movieList.value = repository.getMovieLists()
-        }
+        getAllMovieLists()
     }
 
-    fun getAllMoviesList(){
+    fun getAllMovieLists(){
         val repository = MovieRepositoryImpl(MovieDBClient.movieDBInterface)
         viewModelScope.launch {
             _movieList.value = repository.getMovieLists()
@@ -50,6 +47,13 @@ class MovieListViewModel : ViewModel() {
         val repository = MovieRepositoryImpl(MovieDBClient.movieDBInterface)
         viewModelScope.launch {
             _upcomingMovieList.value = repository.getUpcomingMovieList()
+        }
+    }
+
+    fun getAllSearchResults(title : String){
+        val repository = MovieRepositoryImpl(MovieDBClient.movieDBInterface)
+        viewModelScope.launch {
+            _allSearchResults.value = repository.getAllSearchResults(title)
         }
     }
 
