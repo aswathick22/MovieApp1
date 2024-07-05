@@ -49,16 +49,28 @@ class LoginFragment : Fragment() {
             loginViewModel.setUsername(loginBinding.etName.text.toString())
             loginViewModel.setPassword(loginBinding.etPassword.text.toString())
             loginViewModel.login(dbHandler)
-            /*findNavController().navigate(R.id.action_loginFragment_to_movieListFragment)*/
             loginViewModel.loginSuccess.observe(viewLifecycleOwner) { success ->
-                if (success){
+                if (success) {
+                    // Login successful
                     Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
+                    // Navigate to another fragment or activity
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToHomeFragment())
-                    /*loginViewModel.loginSuccess.value = false*/
+                } else {
+                    // Login failed
+                    Toast.makeText(requireContext(), "Invalid credentials", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 }
 
+
+/*findNavController().navigate(R.id.action_loginFragment_to_movieListFragment)*/
+/*loginViewModel.loginSuccess.observe(viewLifecycleOwner) { success ->
+    if (success){
+        Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToHomeFragment())
+        *//*loginViewModel.loginSuccess.value = false*//*
+                }
+            }*/
 

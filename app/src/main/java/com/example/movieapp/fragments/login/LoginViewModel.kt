@@ -7,8 +7,6 @@ import com.example.movieapp.database.DatabaseHandler
 
 class LoginViewModel : ViewModel(){
 
-    private val loginResult: MutableLiveData<Boolean> = MutableLiveData()
-
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> get() = _username
 
@@ -17,11 +15,6 @@ class LoginViewModel : ViewModel(){
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
-
-    /*private val validUsername = "aswathi@ck"
-    private val validPassword = "ack123"
-    private val validPhoneNo = "6282659925"
-    private val validEmail = "aswathick@gmail.com"*/
 
     private val _loginSuccess = MutableLiveData<Boolean>()
     val loginSuccess: LiveData<Boolean> get() = _loginSuccess
@@ -37,12 +30,16 @@ class LoginViewModel : ViewModel(){
     fun login(dbHandler : DatabaseHandler) {
         try {
             if (validateInputs()) {
-                // Perform login operation
-                // If successful, clear the error message
-                val isUserExist = dbHandler.readUser(username.value?:"", password.value.orEmpty())
-                loginResult.value = isUserExist
-                _errorMessage.value = ""
-                _loginSuccess.value = true
+                val isUserExist = dbHandler.readUser(username.value ?: "", password.value.orEmpty())
+                if (isUserExist) {
+                    // Login successful
+                    _loginSuccess.value = true
+                    _errorMessage.value = ""
+                } else {
+                    // Invalid credentials
+                    _loginSuccess.value = false
+                    _errorMessage.value = "Invalid username or password"
+                }
             }
         } catch (e: Exception) {
             _errorMessage.value = e.message
@@ -70,14 +67,20 @@ class LoginViewModel : ViewModel(){
 
         return true
     }
-    /*private fun updateNameValue(){
+}
+
+
+
+
+
+/*private val loginResult: MutableLiveData<Boolean> = MutableLiveData()*/
+
+/*private fun updateNameValue(){
         _nameValue2.value = "Login"
     }
     init{
         updateNameValue()
     }*/
-}
-
 
 
 
