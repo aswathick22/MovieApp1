@@ -43,7 +43,7 @@ class SignupViewModel : ViewModel(){
         _email.value = email
     }
 
-    fun signup(dbHandler : DatabaseHandler) {
+    fun signup(dbHandler : DatabaseHandler/*<Any?>*/) {
         try {
             if (validateInputs()) {
                 // Perform signup operation

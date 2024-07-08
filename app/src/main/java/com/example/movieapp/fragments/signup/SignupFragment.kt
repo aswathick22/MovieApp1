@@ -14,7 +14,7 @@ import com.example.movieapp.databinding.FragmentSignupBinding
 class SignupFragment : Fragment() {
 
     private lateinit var signupBinding: FragmentSignupBinding
-    private lateinit var dbHandler: DatabaseHandler
+    private lateinit var dbHandler: DatabaseHandler/*<Any?>*/
     private val signupViewModel by viewModels<SignupViewModel>()
 
     override fun onCreateView(

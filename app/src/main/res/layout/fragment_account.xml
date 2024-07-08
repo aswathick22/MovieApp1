@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
-        android:text="@{accountViewModel.username}"
+        android:text=""
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/name_icon"
@@ -108,7 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="48dp"
-        android:text="@{accountViewModel.phone}"
+        android:text=""
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/mobile_icon"
@@ -153,7 +153,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="44dp"
-        android:text="@{accountViewModel.email}"
+        android:text=""
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/mobile_icon"
@@ -181,6 +181,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mail_text" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/password_icon"
+        android:layout_width="45dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="44dp"
+        android:src="@drawable/password_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mail_icon" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/password_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="44dp"
+        android:text=""
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/password_icon"
+        app:layout_constraintTop_toBottomOf="@id/mail_text" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/edit_password_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/edit_icon"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_mail_icon"
+        tools:ignore="NotSibling"
+        android:focusable="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_text" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bn_logout"
         android:layout_width="250dp"
@@ -194,11 +238,12 @@
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mail_text" />
+        app:layout_constraintTop_toBottomOf="@id/password_text" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--@{accountViewModel.username}-->
 <!--android:src="@drawable/profile_icon"-->
 <!--android:src="@drawable/profile_icon"-->
 <!---->

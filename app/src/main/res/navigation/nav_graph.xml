@@ -39,4 +39,9 @@
             android:id="@+id/action_signupFragment2_to_loginFragment2"
             app:destination="@id/loginFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.movieapp.fragments.account.AccountFragment"
+        android:label="Account" >
+    </fragment>
 </navigation>

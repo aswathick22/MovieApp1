@@ -1,5 +1,6 @@
 package com.example.movieapp.fragments.login
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,7 +28,7 @@ class LoginViewModel : ViewModel(){
         _password.value = password/*"ack123"*/
     }
 
-    fun login(dbHandler : DatabaseHandler) {
+    fun login(dbHandler : DatabaseHandler/*<Any?>*/) {
         try {
             if (validateInputs()) {
                 val isUserExist = dbHandler.readUser(username.value ?: "", password.value.orEmpty())
@@ -67,6 +68,14 @@ class LoginViewModel : ViewModel(){
 
         return true
     }
+
+    fun saveLoginState(context: Context, isLoggedIn: Boolean) {
+        val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLoggedIn", isLoggedIn)
+        editor.apply()
+    }
+
 }
 
 

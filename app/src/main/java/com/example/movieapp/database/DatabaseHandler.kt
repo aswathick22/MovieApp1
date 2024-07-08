@@ -57,6 +57,27 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         return userExists
     }
 
+    fun getUserByUsername(username: String): User? {
+        val db = readableDatabase
+        val selection = "$COLUMN_USERNAME = ?"
+        val selectionArgs = arrayOf(username)
+        val cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null)
+
+        return if (cursor != null && cursor.moveToFirst()) {
+            val user = User(
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PASSWORD)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE)),
+                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL))
+            )
+            cursor.close()
+            user
+        } else {
+            cursor?.close()
+            null
+        }
+    }
+
 }
 
 

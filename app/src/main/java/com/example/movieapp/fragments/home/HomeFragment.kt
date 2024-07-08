@@ -9,7 +9,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentHomeBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
 
