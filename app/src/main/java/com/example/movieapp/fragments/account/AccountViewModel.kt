@@ -1,11 +1,11 @@
 package com.example.movieapp.fragments.account
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.movieapp.database.DatabaseHandler
-import com.example.movieapp.database.User
 
 class AccountViewModel : ViewModel(){
 
@@ -21,40 +21,26 @@ class AccountViewModel : ViewModel(){
     private val _password = MutableLiveData<String>()
     val password: LiveData<String> get() = _password
 
-    private val _user = MutableLiveData<User?>()
-    val user: LiveData<User?> get() = _user
-
     private lateinit var dbHandler: DatabaseHandler
 
-    fun fetchUser(context : Context) {
-        val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
-        val username = sharedPreferences.getString("username", null)
-
-        if (username != null) {
-            val user = dbHandler.getUserByUsername(username)
-            if (user != null) {
-                _user.value = user
-            }
+    fun fetchUser(context : Context, loggedInUsername: String) {
+        dbHandler = DatabaseHandler(context)
+        val user = dbHandler.fetchUser(loggedInUsername)
+        if(user!=null) {
+            _username.value = user["username"]
+            _phone.value = user["phone"]
+            _email.value = user["email"]
+            _password.value = user["password"]
+            Log.d("AccountViewModel", "Fetched User: $user")
+        }
+        else{
+            Log.d("AccountViewModel", "User not found")
         }
     }
+
 
     /*private val validUsername = "aswathi@ck"
     private val validPassword = "ack123"
     private val validPhoneNo = "6282659925"
     private val validEmail = "aswathick@gmail.com"*/
-
-    /*private fun updateUsernameValue(){
-        _username.value = "aswathi@ck"*//*username*//*
-    }
-    private fun updatePhoneValue(){
-        _phone.value = "6282659925"*//*phone*//*
-    }private fun updateEmailValue(){
-        _email.value = "aswathick@gmail.com"*//*email*//*
-    }*/
-
-    /*init{
-        updateUsernameValue()
-        updatePhoneValue()
-        updateEmailValue()
-    }*/
 }

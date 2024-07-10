@@ -28,7 +28,7 @@ class LoginViewModel : ViewModel(){
         _password.value = password/*"ack123"*/
     }
 
-    fun login(dbHandler : DatabaseHandler/*<Any?>*/) {
+    fun login(context: Context, dbHandler : DatabaseHandler/*<Any?>*/) {
         try {
             if (validateInputs()) {
                 val isUserExist = dbHandler.readUser(username.value ?: "", password.value.orEmpty())
@@ -73,6 +73,13 @@ class LoginViewModel : ViewModel(){
         val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putBoolean("isLoggedIn", isLoggedIn)
+        editor.apply()
+    }
+
+    fun saveLoggedInUsername(context: Context, loggedInUsername: String) {
+        val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("loggedInUsername", loggedInUsername)
         editor.apply()
     }
 

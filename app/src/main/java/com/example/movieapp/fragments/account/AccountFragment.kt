@@ -1,23 +1,22 @@
 package com.example.movieapp.fragments.account
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.movieapp.R
 import com.example.movieapp.database.DatabaseHandler
 import com.example.movieapp.databinding.FragmentAccountBinding
-import com.example.movieapp.fragments.signup.SignupViewModel
 
 class AccountFragment : Fragment() {
 
     private lateinit var accountBinding : FragmentAccountBinding
-    private lateinit var dbHandler: DatabaseHandler/*<Any?>*/
+    private lateinit var dbHandler: DatabaseHandler
     private val accountViewModel by viewModels<AccountViewModel>()
 
     override fun onCreateView(
@@ -30,40 +29,36 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val sharedPreferences = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val loggedInUsername = sharedPreferences.getString("loggedInUsername", null)
 
-        accountViewModel.fetchUser(requireContext())
-
-        accountViewModel.user.observe(viewLifecycleOwner) { user ->
-            accountBinding.nameText.text = user?.username
-            accountBinding.mobileText.text = user?.phone
-            accountBinding.mailText.text = user?.email
-            accountBinding.passwordText.text = user?.password
+        if (loggedInUsername != null && loggedInUsername.isEmpty()) {
+            accountViewModel.fetchUser(requireContext(), loggedInUsername)
         }
-        /*accountViewModel.username.observe(viewLifecycleOwner){username ->
+
+        accountViewModel.username.observe(viewLifecycleOwner){username ->
+            Log.d("AccountViewModel", username)
             accountBinding.nameText.text = username
         }
         accountViewModel.phone.observe(viewLifecycleOwner){phone ->
+            Log.d("AccountViewModel", phone)
             accountBinding.mobileText.text = phone
         }
         accountViewModel.email.observe(viewLifecycleOwner){email ->
+            Log.d("AccountViewModel", email)
             accountBinding.mailText.text = email
-        }*/
-
-        /*accountViewModel.isLoggedIn.observe(viewLifecycleOwner) { isLoggedIn ->
-            if (isLoggedIn) {
-                // User is authenticated, update UI accordingly
-                *//*accountBinding.tvLoggedInStatus.text = "Logged In"*//*
-                accountBinding.bnLogout.visibility = View.VISIBLE
-            } else {
-                // User is not authenticated, update UI accordingly
-                *//*accountBinding.tvLoggedInStatus.text = "Not Logged In"*//*
-                accountBinding.bnLogout.visibility = View.VISIBLE
-            }
-        }*/
+        }
+        accountViewModel.password.observe(viewLifecycleOwner){password ->
+            Log.d("AccountViewModel", password)
+            accountBinding.passwordText.text = password
+        }
 
         // Handle logout button click
         accountBinding.bnLogout.setOnClickListener {
-            /*accountViewModel.logout()*/
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("isLoggedIn", false)
+            editor.putString("loggedInUsername", null)
+            editor.apply()
             requireActivity().findNavController(R.id.navHostFragmentContainerView).navigate(R.id.welcomeFragment)
         }
     }

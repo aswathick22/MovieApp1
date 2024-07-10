@@ -43,5 +43,8 @@
         android:id="@+id/accountFragment"
         android:name="com.example.movieapp.fragments.account.AccountFragment"
         android:label="Account" >
+        <argument
+            android:name="username"
+            app:argType="string" />
     </fragment>
 </navigation>

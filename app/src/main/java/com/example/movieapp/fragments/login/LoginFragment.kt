@@ -1,5 +1,6 @@
 package com.example.movieapp.fragments.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ import com.example.movieapp.databinding.FragmentLoginBinding
 class LoginFragment : Fragment() {
 
     private val loginViewModel by viewModels<LoginViewModel>()
-    private lateinit var dbHandler: DatabaseHandler/*<Any?>*/
+    private lateinit var dbHandler: DatabaseHandler
     private lateinit var loginBinding : FragmentLoginBinding
 
     override fun onCreateView(
@@ -46,16 +47,22 @@ class LoginFragment : Fragment() {
         }
 
         loginBinding.bnLogin.setOnClickListener {
-            loginViewModel.setUsername(loginBinding.etName.text.toString())
-            loginViewModel.setPassword(loginBinding.etPassword.text.toString())
-            loginViewModel.login(dbHandler)
+            /*loginViewModel.setUsername(loginBinding.etName.text.toString())
+            loginViewModel.setPassword(loginBinding.etPassword.text.toString())*/
+            val username = loginBinding.etName.text.toString()
+            val password = loginBinding.etPassword.text.toString()
+            loginViewModel.setUsername(username)
+            loginViewModel.setPassword(password)
+            loginViewModel.login(requireContext(), dbHandler)
 
             loginViewModel.loginSuccess.observe(viewLifecycleOwner) { success ->
                 if (success) {
                     // Login successful
+                    loginViewModel.saveLoginState(requireContext(), true)
+                    loginViewModel.saveLoggedInUsername(requireContext(), username)
+                    // Assuming you use Navigation Component
                     Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
                     // Navigate to another fragment or activity
-                    loginViewModel.saveLoginState(requireContext(), true)
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToHomeFragment())
                 } else {
                     // Login failed
@@ -77,3 +84,9 @@ class LoginFragment : Fragment() {
                 }
             }*/
 
+/*
+val sharedPreferences = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+with(sharedPreferences.edit()) {
+    putString("loggedInUsername", username)
+    apply()
+}*/
