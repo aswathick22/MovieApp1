@@ -32,7 +32,8 @@ class AccountFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         val loggedInUsername = sharedPreferences.getString("loggedInUsername", null)
 
-        if (loggedInUsername != null && loggedInUsername.isEmpty()) {
+        if (loggedInUsername != null) {
+            Log.d("AccountFragment", "Calling fetchUser with username: $loggedInUsername")
             accountViewModel.fetchUser(requireContext(), loggedInUsername)
         }
 

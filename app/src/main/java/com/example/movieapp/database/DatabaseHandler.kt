@@ -63,14 +63,21 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         val db = readableDatabase
         val query = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_USERNAME = ?"
         Log.d("DatabaseHandler", "Executing query: $query with username: $username")
+        if (username.isEmpty()) {
+            Log.d("DatabaseHandler", "Username is empty")
+            return null
+        }
         val cursor = db.rawQuery(query, arrayOf(username))
-        print(cursor)
+        if (username.isEmpty()) {
+            Log.d("DatabaseHandler", "Username is empty")
+            return null
+        }
         return if (cursor.moveToFirst()) {
             val user = mapOf(
-            "username" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME)),
-            "phone" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE)),
-            "email" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL)),
-            "password" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PASSWORD))
+                "username" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME)),
+                "phone" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE)),
+                "email" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL)),
+                "password" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PASSWORD))
             )
             cursor.close()
             user

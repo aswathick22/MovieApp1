@@ -1,6 +1,7 @@
 package com.example.movieapp.fragments.login
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -76,10 +77,11 @@ class LoginViewModel : ViewModel(){
         editor.apply()
     }
 
-    fun saveLoggedInUsername(context: Context, loggedInUsername: String) {
+    fun saveLoggedInUsername(context: Context, username: String) {
+        Log.d("LoginViewModel", "Saving username: $username")
         val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("loggedInUsername", loggedInUsername)
+        editor.putString("loggedInUsername", username)
         editor.apply()
     }
 

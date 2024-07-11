@@ -49,9 +49,9 @@ class LoginFragment : Fragment() {
         loginBinding.bnLogin.setOnClickListener {
             /*loginViewModel.setUsername(loginBinding.etName.text.toString())
             loginViewModel.setPassword(loginBinding.etPassword.text.toString())*/
-            val username = loginBinding.etName.text.toString()
+            val enteredUsername = loginBinding.etName.text.toString()
             val password = loginBinding.etPassword.text.toString()
-            loginViewModel.setUsername(username)
+            loginViewModel.setUsername(enteredUsername)
             loginViewModel.setPassword(password)
             loginViewModel.login(requireContext(), dbHandler)
 
@@ -59,7 +59,7 @@ class LoginFragment : Fragment() {
                 if (success) {
                     // Login successful
                     loginViewModel.saveLoginState(requireContext(), true)
-                    loginViewModel.saveLoggedInUsername(requireContext(), username)
+                    loginViewModel.saveLoggedInUsername(requireContext(), enteredUsername)
                     // Assuming you use Navigation Component
                     Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
                     // Navigate to another fragment or activity

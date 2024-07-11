@@ -23,9 +23,9 @@ class AccountViewModel : ViewModel(){
 
     private lateinit var dbHandler: DatabaseHandler
 
-    fun fetchUser(context : Context, loggedInUsername: String) {
+    fun fetchUser(context : Context, username: String) {
         dbHandler = DatabaseHandler(context)
-        val user = dbHandler.fetchUser(loggedInUsername)
+        val user = dbHandler.fetchUser(username)
         if(user!=null) {
             _username.value = user["username"]
             _phone.value = user["phone"]
