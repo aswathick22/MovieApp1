@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-  /*  alias(libs.plugins.kotlinKapt)*/
     alias(libs.plugins.androidNavigationSafeArgs)
 }
 
@@ -64,6 +63,12 @@ dependencies {
     //Unit Test Libraries
     testImplementation libs.junit
     testImplementation libs.junit.jupiter
+    testImplementation libs.junit.v412
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation libs.androidx.core.testing
+    androidTestImplementation libs.ui.test.junit4
+    androidTestImplementation libs.mockito.core
+    androidTestImplementation libs.mockito.android
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
     androidTestImplementation libs.androidx.ui.test.junit4

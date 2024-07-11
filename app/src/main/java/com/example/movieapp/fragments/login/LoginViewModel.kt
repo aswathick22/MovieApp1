@@ -31,7 +31,7 @@ class LoginViewModel : ViewModel(){
 
     fun login(context: Context, dbHandler : DatabaseHandler/*<Any?>*/) {
         try {
-            if (validateInputs()) {
+            if (LoginValidator.validateLogin(_username, _password)) {
                 val isUserExist = dbHandler.readUser(username.value ?: "", password.value.orEmpty())
                 if (isUserExist) {
                     // Login successful
@@ -49,25 +49,29 @@ class LoginViewModel : ViewModel(){
         }
     }
 
-    private fun validateInputs(): Boolean {
+    object LoginValidator {
+        fun validateLogin(_username: LiveData<String>, _password: LiveData<String>): Boolean {
+            val usernameValue = _username.value
+            val passwordValue = _password.value
 
-        val usernameValue = _username.value
-        val passwordValue = _password.value
+            if (usernameValue.isNullOrBlank()) {
+                throw IllegalArgumentException("Username cannot be empty")
+            }
 
-        if (usernameValue.isNullOrBlank()) {
-            throw IllegalArgumentException("Username cannot be empty")
+            if (passwordValue.isNullOrBlank()) {
+                throw IllegalArgumentException("Password cannot be empty")
+            }
+
+            if (!passwordValue.matches(".*[A-Z].*".toRegex()) ||
+                !passwordValue.matches(".*[a-z].*".toRegex()) ||
+                !passwordValue.matches(".*[0-9].*".toRegex()) ||
+                !passwordValue.matches(".*[@#\$%^&+=].*".toRegex())
+            ) {
+                throw IllegalArgumentException("")/*Incorrect Password*/
+            }
+
+            return true
         }
-
-        if (passwordValue.isNullOrBlank()) {
-            throw IllegalArgumentException("Password cannot be empty")
-        }
-
-        // Add logic to check if username or password is incorrect
-        if (usernameValue.isEmpty() || passwordValue.isEmpty()) {
-            throw IllegalArgumentException("Incorrect username or password")
-        }
-
-        return true
     }
 
     fun saveLoginState(context: Context, isLoggedIn: Boolean) {
@@ -88,7 +92,26 @@ class LoginViewModel : ViewModel(){
 }
 
 
+/*private fun validateInputs(): Boolean {
 
+    val usernameValue = _username.value
+    val passwordValue = _password.value
+
+    if (usernameValue.isNullOrBlank()) {
+        throw IllegalArgumentException("Username cannot be empty")
+    }
+
+    if (passwordValue.isNullOrBlank()) {
+        throw IllegalArgumentException("Password cannot be empty")
+    }
+
+    // Add logic to check if username or password is incorrect
+    if (usernameValue.isEmpty() || passwordValue.isEmpty()) {
+        throw IllegalArgumentException("Incorrect username or password")
+    }
+
+    return true
+}*/
 
 
 /*private val loginResult: MutableLiveData<Boolean> = MutableLiveData()*/

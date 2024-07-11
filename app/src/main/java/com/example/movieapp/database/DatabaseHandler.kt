@@ -32,10 +32,12 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-
-        val dropTableQuery = ("DROP TABLE IF EXISTS $TABLE_NAME")
-        db.execSQL(dropTableQuery)
-        onCreate(db)
+        if (oldVersion < newVersion) {
+            Log.d("DatabaseHandler", "Upgrading database from version $oldVersion to $newVersion")
+            val dropTableQuery = ("DROP TABLE IF EXISTS $TABLE_NAME")
+            db.execSQL(dropTableQuery)
+            onCreate(db)
+        }
     }
 
     fun insertUser(username: String, password: String, phone: String, email: String): Long {

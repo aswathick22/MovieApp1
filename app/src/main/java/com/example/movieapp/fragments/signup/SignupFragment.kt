@@ -22,12 +22,6 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         signupBinding = FragmentSignupBinding.inflate(inflater, container, false)
-        /*signupViewModel.nameValue1.observe(viewLifecycleOwner){
-            print(it)
-        }
-        binding.bnSubmit.setOnClickListener {
-            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
-        }*/
         dbHandler = DatabaseHandler(requireContext())
         return signupBinding.root
     }
@@ -56,16 +50,6 @@ class SignupFragment : Fragment() {
             signupViewModel.setPhone(signupBinding.etPhone.text.toString())
             signupViewModel.setEmail(signupBinding.etEmail.text.toString())
             signupViewModel.signup(dbHandler)
-            /*if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
-            } else {
-                val result = dbHandler.insertUser(username, password)
-                if (result > -1) {
-                    Toast.makeText(requireContext(), "Signup successful", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Signup failed", Toast.LENGTH_SHORT).show()
-                }
-            }*/
             signupViewModel.signupSuccess.observe(viewLifecycleOwner) { success ->
                 if (success){
                     Toast.makeText(requireContext(), "Signup successful", Toast.LENGTH_SHORT).show()
@@ -77,4 +61,17 @@ class SignupFragment : Fragment() {
     }
 }
 
+
+
+
+/*if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
+            } else {
+                val result = dbHandler.insertUser(username, password)
+                if (result > -1) {
+                    Toast.makeText(requireContext(), "Signup successful", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Signup failed", Toast.LENGTH_SHORT).show()
+                }
+            }*/
 
