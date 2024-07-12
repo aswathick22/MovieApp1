@@ -23,7 +23,7 @@ data class ResultX(
     @Json(name = "popularity")
     val popularity: Double,
     @Json(name = "poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @Json(name = "release_date")
     val releaseDate: String,
     @Json(name = "title")

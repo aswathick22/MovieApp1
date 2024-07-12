@@ -34,42 +34,42 @@ class LoginValidationTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun testEmptyPasswordThrowsException() {
-        _username.value = "username@example.com"
+        _username.value = "username@1"
         _password.value = ""
         validateLogin(_username, _password)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun testPasswordMissingUppercaseThrowsException() {
-        _username.value = "username@example.com"
+        _username.value = "username@1"
         _password.value = "password1!"
         validateLogin(_username, _password)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun testPasswordMissingLowercaseThrowsException() {
-        _username.value = "username@example.com"
+        _username.value = "username@1"
         _password.value = "PASSWORD1!"
         validateLogin(_username, _password)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun testPasswordMissingNumberThrowsException() {
-        _username.value = "username@example.com"
+        _username.value = "username@1"
         _password.value = "Password!"
         validateLogin(_username, _password)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun testPasswordMissingSpecialCharacterThrowsException() {
-        _username.value = "username@example.com"
+        _username.value = "username@1"
         _password.value = "Password1"
         validateLogin(_username, _password)
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun testValidInputs() {
-        _username.value = "username@example.com"
+        _username.value = "username@1"
         _password.value = "Password123!"
         assertTrue(validateLogin(_username, _password))
     }
