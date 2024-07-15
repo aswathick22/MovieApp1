@@ -23,7 +23,7 @@ data class MovieCastDetails(
     @Json(name = "id")
     val id: Int,
     @Json(name = "imdb_id")
-    val imdbId: String,
+    val imdbId: String?,
     @Json(name = "known_for_department")
     val knownForDepartment: String?,
     @Json(name = "name")

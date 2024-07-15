@@ -6,6 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -37,6 +41,8 @@ class AccountFragment : Fragment() {
             accountViewModel.fetchUser(requireContext(), loggedInUsername)
         }
 
+        setEditButtons()
+
         accountViewModel.username.observe(viewLifecycleOwner){username ->
             Log.d("AccountViewModel", username)
             accountBinding.nameText.text = username
@@ -63,5 +69,94 @@ class AccountFragment : Fragment() {
             requireActivity().findNavController(R.id.navHostFragmentContainerView).navigate(R.id.welcomeFragment)
         }
     }
+
+    private fun setEditButtons() {
+        accountBinding.editNameIcon.setOnClickListener {
+            showEditDialog("Username", accountViewModel.username.value.orEmpty()) { newValue ->
+                accountViewModel.updateUserDetails(
+                    newValue,
+                    accountViewModel.phone.value.orEmpty(),
+                    accountViewModel.email.value.orEmpty(),
+                    accountViewModel.password.value.orEmpty()
+                )
+            }
+        }
+
+        accountBinding.editPhoneIcon.setOnClickListener {
+            showEditDialog("Phone", accountViewModel.phone.value.orEmpty()) { newValue ->
+                accountViewModel.updateUserDetails(
+                    accountViewModel.username.value.orEmpty(),
+                    newValue,
+                    accountViewModel.email.value.orEmpty(),
+                    accountViewModel.password.value.orEmpty()
+                )
+            }
+        }
+
+        accountBinding.editMailIcon.setOnClickListener {
+            showEditDialog("Email", accountViewModel.email.value.orEmpty()) { newValue ->
+                accountViewModel.updateUserDetails(
+                    accountViewModel.username.value.orEmpty(),
+                    accountViewModel.phone.value.orEmpty(),
+                    newValue,
+                    accountViewModel.password.value.orEmpty()
+                )
+            }
+        }
+
+        accountBinding.editPasswordIcon.setOnClickListener {
+            showEditDialog("Password", accountViewModel.password.value.orEmpty()) { newValue ->
+                accountViewModel.updateUserDetails(
+                    accountViewModel.username.value.orEmpty(),
+                    accountViewModel.phone.value.orEmpty(),
+                    accountViewModel.email.value.orEmpty(),
+                    newValue
+                )
+            }
+        }
+    }
+
+    private fun showEditDialog(field: String, currentValue: String, updateFunction: (String) -> Unit) {
+        val dialog = AlertDialog.Builder(requireContext())
+        val input = EditText(requireContext())
+        input.setText(currentValue)
+        dialog.setTitle("Edit $field")
+        dialog.setView(input)
+
+        dialog.setPositiveButton("Save") { _, _ ->
+            val newValue = input.text.toString()
+            updateFunction(newValue)
+        }
+
+        dialog.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        dialog.show()
+    }
+
+
+    /*private fun showEditDialog(field: String) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_edit_user_detail, null)
+        val editText = dialogView.findViewById<EditText>(R.id.editText)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Edit $field")
+            .setView(dialogView)
+            .setPositiveButton("Save") { dialog, _ ->
+                val newValue = editText.text.toString()
+                when (field) {
+                    "username" -> updateDetail(field, newValue)
+                    "email" -> updateDetail(field, newValue)
+                    "phone" -> updateDetail(field, newValue)
+                    "password" -> updateDetail(field, newValue)
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+        dialog.show()
+    }*/
 
 }

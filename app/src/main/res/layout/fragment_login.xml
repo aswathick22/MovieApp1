@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<layout>
-    <data>
-        <variable
-            name="loginViewModel"
-            type="com.example.movieapp.fragments.login.LoginViewModel" />
-    </data>-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/front_page_background"
+    android:background="@drawable/app_background"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".fragments.login.LoginFragment">
@@ -19,11 +14,11 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="30dp"
         android:text="Login"
-        android:textColor="@color/purple_500"
+        android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,8 +28,9 @@
         android:id="@+id/et_name_outer"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_margin="20dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="40dp"
         android:hint="Enter Name"
         app:boxBackgroundMode="outline"
@@ -42,6 +38,7 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusTopStart="20dp"
+        app:boxBackgroundColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/textView1"
         app:layout_constraintEnd_toEndOf="@+id/outer_box"
         app:layout_constraintStart_toStartOf="@id/outer_box"
@@ -50,22 +47,25 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/white" />
+            android:layout_height="70dp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_password_outer"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_margin="20dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:hint="Enter Password"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusTopStart="20dp"
+        app:boxBackgroundColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_name_outer">
@@ -74,8 +74,8 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/white"
             android:inputType="textPassword" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -83,7 +83,6 @@
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
@@ -98,13 +97,3 @@
         app:layout_constraintTop_toBottomOf="@+id/et_password_outer" />
 
 </LinearLayout>
-<!--</layout>-->
-
-<!--@{loginViewModel.nameValue2}-->
-
-    <!--app:boxCornerRadiusBottomEnd="20dp"
-    app:boxCornerRadiusBottomStart="20dp"
-    app:boxCornerRadiusTopEnd="20dp"
-    app:boxCornerRadiusTopStart="20dp"-->
-
-    <!--app:endIconMode="password_toggle"-->

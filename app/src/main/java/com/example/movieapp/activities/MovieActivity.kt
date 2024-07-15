@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.movieapp.R
+import com.example.movieapp.database.DatabaseHandler
 import com.example.movieapp.databinding.ActivityMovieBinding
 
 class MovieActivity : AppCompatActivity() {

@@ -5,21 +5,23 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.movieapp.database.DatabaseHandler
+import kotlinx.coroutines.launch
 
 class AccountViewModel : ViewModel(){
 
     private val _username = MutableLiveData<String>()
-    val username: LiveData<String> get() = _username
+    val username: MutableLiveData<String> get() = _username
 
     private val _phone = MutableLiveData<String>()
-    val phone: LiveData<String> get() = _phone
+    val phone: MutableLiveData<String> get() = _phone
 
     private val _email = MutableLiveData<String>()
-    val email: LiveData<String> get() = _email
+    val email: MutableLiveData<String> get() = _email
 
     private val _password = MutableLiveData<String>()
-    val password: LiveData<String> get() = _password
+    val password: MutableLiveData<String> get() = _password
 
     private lateinit var dbHandler: DatabaseHandler
 
@@ -35,6 +37,16 @@ class AccountViewModel : ViewModel(){
         }
         else{
             Log.d("AccountViewModel", "User not found")
+        }
+    }
+
+    fun updateUserDetails(newUsername: String, newPhone: String, newEmail: String, newPassword: String) {
+        viewModelScope.launch {
+            dbHandler.updateUser(newUsername, newPhone, newEmail, newPassword)
+            username.postValue(newUsername)
+            phone.postValue(newPhone)
+            email.postValue(newEmail)
+            password.postValue(newPassword)
         }
     }
 

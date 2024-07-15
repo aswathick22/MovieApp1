@@ -24,7 +24,6 @@ class LoginFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         loginBinding = FragmentLoginBinding.inflate(inflater, container, false)
-
         dbHandler = DatabaseHandler(requireContext())
         return loginBinding.root
     }

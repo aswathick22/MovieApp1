@@ -21,7 +21,7 @@ data class MovieDetails(
     @Json(name = "id")
     val id: Int,
     @Json(name = "imdb_id")
-    val imdbId: String,
+    val imdbId: String?,
     @Json(name = "origin_country")
     val originCountry: List<String>,
     @Json(name = "original_language")

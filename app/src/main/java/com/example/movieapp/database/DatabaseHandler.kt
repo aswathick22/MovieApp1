@@ -89,4 +89,42 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         }
     }
 
+    fun updateUser(newUsername: String, newPhone: String, newEmail: String, newPassword: String) {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(COLUMN_USERNAME, newUsername)
+        contentValues.put(COLUMN_PHONE, newPhone)
+        contentValues.put(COLUMN_EMAIL, newEmail)
+        contentValues.put(COLUMN_PASSWORD, newPassword)
+        db.update(TABLE_NAME, contentValues, "$COLUMN_USERNAME = ?", arrayOf(newUsername))
+        db.close()
+    }
+
+    /*fun updateUser (currentUsername: String, newUsername: String?, newEmail: String?, newPhone: String?, newPassword: String?): Boolean {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+
+        newUsername?.let { contentValues.put("username", it) }
+        newEmail?.let { contentValues.put("email", it) }
+        newPhone?.let { contentValues.put("phone", it) }
+        newPassword?.let { contentValues.put("password", it) }
+
+        val success = db.update("data", contentValues, "username=?", arrayOf(currentUsername))
+        db.close()
+        return success > 0
+    }*/
+
+    /*fun deleteUser() {
+        val db = this.writableDatabase
+        val query = "SELECT MAX($COLUMN_ID) AS max_id FROM $TABLE_NAME"
+        val cursor = db.rawQuery(query, null)
+
+        if (cursor.moveToFirst()) {
+            val lastId = cursor.getInt(cursor.getColumnIndexOrThrow("max_id"))
+            db.delete(TABLE_NAME, "$COLUMN_ID = 3", arrayOf(lastId.toString()))
+        }
+        cursor.close()
+        db.close()
+    }*/
+
 }
