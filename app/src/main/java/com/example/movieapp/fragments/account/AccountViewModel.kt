@@ -42,13 +42,28 @@ class AccountViewModel : ViewModel(){
 
     fun updateUserDetails(newUsername: String, newPhone: String, newEmail: String, newPassword: String) {
         viewModelScope.launch {
+            val oldUsername = username.value ?: return@launch
+            val result = dbHandler.updateUser(oldUsername, newUsername, newPhone, newEmail, newPassword)
+            if (result > 0) {
+                username.postValue(newUsername)
+                phone.postValue(newPhone)
+                email.postValue(newEmail)
+                password.postValue(newPassword)
+            } else {
+                Log.e("AccountViewModel", "Failed to update user details in database")
+            }
+        }
+    }
+
+    /*fun updateUserDetails(newUsername: String, newPhone: String, newEmail: String, newPassword: String) {
+        viewModelScope.launch {
             dbHandler.updateUser(newUsername, newPhone, newEmail, newPassword)
             username.postValue(newUsername)
             phone.postValue(newPhone)
             email.postValue(newEmail)
             password.postValue(newPassword)
         }
-    }
+    }*/
 
 
     /*private val validUsername = "aswathi@ck"

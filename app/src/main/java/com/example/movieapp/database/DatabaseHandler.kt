@@ -89,15 +89,17 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         }
     }
 
-    fun updateUser(newUsername: String, newPhone: String, newEmail: String, newPassword: String) {
+    fun updateUser(oldUsername: String, newUsername: String, newPhone: String, newEmail: String, newPassword: String): Int {
         val db = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put(COLUMN_USERNAME, newUsername)
-        contentValues.put(COLUMN_PHONE, newPhone)
-        contentValues.put(COLUMN_EMAIL, newEmail)
-        contentValues.put(COLUMN_PASSWORD, newPassword)
-        db.update(TABLE_NAME, contentValues, "$COLUMN_USERNAME = ?", arrayOf(newUsername))
+        val contentValues = ContentValues().apply {
+            put(COLUMN_USERNAME, newUsername)
+            put(COLUMN_PHONE, newPhone)
+            put(COLUMN_EMAIL, newEmail)
+            put(COLUMN_PASSWORD, newPassword)
+        }
+        val result = db.update(TABLE_NAME, contentValues, "$COLUMN_USERNAME = ?", arrayOf(oldUsername))
         db.close()
+        return result
     }
 
     /*fun updateUser (currentUsername: String, newUsername: String?, newEmail: String?, newPhone: String?, newPassword: String?): Boolean {

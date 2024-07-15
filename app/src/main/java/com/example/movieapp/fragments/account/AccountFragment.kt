@@ -28,6 +28,7 @@ class AccountFragment : Fragment() {
     ): View {
         accountBinding = FragmentAccountBinding.inflate(inflater,container,false)
         dbHandler = DatabaseHandler(requireContext())
+        setEditButtons()
         return accountBinding.root
     }
 
@@ -40,8 +41,6 @@ class AccountFragment : Fragment() {
             Log.d("AccountFragment", "Calling fetchUser with username: $loggedInUsername")
             accountViewModel.fetchUser(requireContext(), loggedInUsername)
         }
-
-        setEditButtons()
 
         accountViewModel.username.observe(viewLifecycleOwner){username ->
             Log.d("AccountViewModel", username)
@@ -117,14 +116,15 @@ class AccountFragment : Fragment() {
     }
 
     private fun showEditDialog(field: String, currentValue: String, updateFunction: (String) -> Unit) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_edit_user_detail, null)
+        val editText = dialogView.findViewById<EditText>(R.id.editText)
         val dialog = AlertDialog.Builder(requireContext())
-        val input = EditText(requireContext())
-        input.setText(currentValue)
+        editText.setText(currentValue)
         dialog.setTitle("Edit $field")
-        dialog.setView(input)
+        dialog.setView(dialogView)
 
         dialog.setPositiveButton("Save") { _, _ ->
-            val newValue = input.text.toString()
+            val newValue = editText.text.toString()
             updateFunction(newValue)
         }
 
@@ -134,29 +134,5 @@ class AccountFragment : Fragment() {
 
         dialog.show()
     }
-
-
-    /*private fun showEditDialog(field: String) {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_edit_user_detail, null)
-        val editText = dialogView.findViewById<EditText>(R.id.editText)
-        val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Edit $field")
-            .setView(dialogView)
-            .setPositiveButton("Save") { dialog, _ ->
-                val newValue = editText.text.toString()
-                when (field) {
-                    "username" -> updateDetail(field, newValue)
-                    "email" -> updateDetail(field, newValue)
-                    "phone" -> updateDetail(field, newValue)
-                    "password" -> updateDetail(field, newValue)
-                }
-                dialog.dismiss()
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .create()
-        dialog.show()
-    }*/
 
 }
