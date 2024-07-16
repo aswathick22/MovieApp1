@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:text="Male"
+            android:text="No gender"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/cast_image"
             app:layout_constraintTop_toBottomOf="@id/gender_text" />
@@ -149,7 +149,7 @@
             android:id="@+id/cast_biography"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="A"
+            android:text="No description"
             android:textColor="@color/grey"
             android:textSize="15sp"
             android:layout_margin="20dp"

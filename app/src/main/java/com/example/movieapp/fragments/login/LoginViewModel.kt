@@ -40,7 +40,7 @@ class LoginViewModel : ViewModel(){
                 } else {
                     // Invalid credentials
                     _loginSuccess.value = false
-                    _errorMessage.value = "Invalid username or password"
+                    _errorMessage.value = ""/*Invalid username or password*/
                 }
             }
         } catch (e: Exception) {
