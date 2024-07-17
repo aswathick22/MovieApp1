@@ -29,7 +29,7 @@ class LoginViewModel : ViewModel(){
         _password.value = password/*"ack123"*/
     }
 
-    fun login(context: Context, dbHandler : DatabaseHandler/*<Any?>*/) {
+    fun login(context: Context, dbHandler : DatabaseHandler) {
         try {
             if (LoginValidator.validateLogin(_username, _password)) {
                 val isUserExist = dbHandler.readUser(username.value ?: "", password.value.orEmpty())
