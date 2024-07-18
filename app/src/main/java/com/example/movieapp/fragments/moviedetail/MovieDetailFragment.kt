@@ -2,10 +2,18 @@ package com.example.movieapp.fragments.moviedetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
@@ -30,6 +38,29 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_movie_detail, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu item selection
+                return when (menuItem.itemId) {
+                    R.id.watch_video -> {
+                        /*findNavController().navigate(R.id.action_movieDetailFragment_to_watchVideosFragment)*/
+                        true
+                    }
+                    R.id.see_reviews -> {
+                        /*findNavController().navigate(R.id.action_movieDetailFragment_to_seeReviewsFragment)*/
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         val movieId = arguments?.getInt("movieId")
         mainViewModel.updateMovieId(movieId ?: 0)
         mainViewModel.movieDetail.observe(viewLifecycleOwner) { moviedetails ->
@@ -55,6 +86,9 @@ class MovieDetailFragment : Fragment() {
         }
     }
 }
+
+
+
 
 
 

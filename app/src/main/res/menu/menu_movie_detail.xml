@@ -4,10 +4,10 @@
 
     <item android:id="@+id/watch_video"
         android:title="Watch Trailer"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
     <item android:id="@+id/see_reviews"
         android:title="See Reviews"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
 </menu>
