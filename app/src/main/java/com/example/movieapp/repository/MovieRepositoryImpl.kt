@@ -7,6 +7,7 @@ import com.example.movieapp.remote.data.MovieResult
 import com.example.movieapp.remote.data.MovieReview
 import com.example.movieapp.remote.data.MovieVideos
 import com.example.movieapp.remote.data.PopularMovieList
+import com.example.movieapp.remote.data.ResultXXX
 
 
 open class MovieRepositoryImpl(private val apiService : MovieRepository) : MovieRepository{
@@ -51,8 +52,8 @@ open class MovieRepositoryImpl(private val apiService : MovieRepository) : Movie
         return apiService.getMovieReviews(movieId)
     }
 
-    override suspend fun getMovieVideo(movieId: Int): MovieVideos {
-        return apiService.getMovieVideo(movieId)
+    override suspend fun getMovieTrailer(movieId: Int): MovieVideos {
+        return apiService.getMovieTrailer(movieId)
     }
 
 }

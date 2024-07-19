@@ -11,6 +11,7 @@ import com.example.movieapp.remote.data.MovieResult
 import com.example.movieapp.remote.data.MovieReview
 import com.example.movieapp.remote.data.MovieVideos
 import com.example.movieapp.remote.data.PopularMovieList
+import com.example.movieapp.remote.data.ResultXXX
 import com.example.movieapp.remote.data.UpcomingMovieList
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -50,7 +51,7 @@ interface MovieRepository {
     suspend fun getMovieReviews(@Path("movie_id") movieId : Int) : MovieReview
 
     @GET("movie/{movie_id}/videos?api_key=$API_KEY&language=en-US")
-    suspend fun getMovieVideo(@Path("movie_id") movieId : Int) : MovieVideos
+    suspend fun getMovieTrailer(@Path("movie_id") movieId : Int) : MovieVideos
 }
 
 

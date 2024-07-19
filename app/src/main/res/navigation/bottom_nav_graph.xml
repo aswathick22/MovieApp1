@@ -39,6 +39,20 @@
         <action
             android:id="@+id/action_movieDetailFragment_to_castDetailFragment"
             app:destination="@id/castDetailFragment" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_seeReviewsFragment"
+            app:destination="@id/seeReviewsFragment" >
+            <argument
+                app:argType="integer"
+                android:name="movieId" />
+            </action>
+        <action
+            android:id="@+id/action_movieDetailFragment_to_watchTrailerFragment"
+            app:destination="@id/watchTrailerFragment" >
+            <argument
+                app:argType="integer"
+                android:name="movieId" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/castDetailFragment"
@@ -48,5 +62,21 @@
             app:argType="integer"
             android:name="personId">
         </argument>
+    </fragment>
+    <fragment
+        android:id="@+id/seeReviewsFragment"
+        android:name="com.example.movieapp.fragments.moviedetail.seereviews.SeeReviewsFragment"
+        android:label="Reviews" />
+        <argument
+            app:argType="integer"
+            android:name="movieId">
+        </argument>
+    <fragment
+        android:id="@+id/watchTrailerFragment"
+        android:name="com.example.movieapp.fragments.moviedetail.watchtrailer.WatchTrailerFragment"
+        android:label="WatchTrailerFragment" >
+        <argument
+            app:argType="integer"
+            android:name="movieId" />
     </fragment>
 </navigation>

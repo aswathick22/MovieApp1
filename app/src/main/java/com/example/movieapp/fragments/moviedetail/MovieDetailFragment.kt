@@ -49,11 +49,13 @@ class MovieDetailFragment : Fragment() {
                 // Handle the menu item selection
                 return when (menuItem.itemId) {
                     R.id.watch_video -> {
-                        /*findNavController().navigate(R.id.action_movieDetailFragment_to_watchVideosFragment)*/
+                        val movieId = arguments?.getInt("movieId") ?: 0
+                        findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToWatchTrailerFragment(movieId))
                         true
                     }
                     R.id.see_reviews -> {
-                        /*findNavController().navigate(R.id.action_movieDetailFragment_to_seeReviewsFragment)*/
+                        val movieId = arguments?.getInt("movieId") ?: 0
+                        findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToSeeReviewsFragment(movieId))
                         true
                     }
                     else -> false

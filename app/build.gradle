@@ -64,7 +64,7 @@ dependencies {
     testImplementation libs.junit
     testImplementation libs.junit.jupiter
     testImplementation libs.junit.v412
-    testImplementation 'junit:junit:4.12'
+    testImplementation libs.junit.junit.v412
     androidTestImplementation libs.androidx.core.testing
     androidTestImplementation libs.ui.test.junit4
     androidTestImplementation libs.mockito.core
