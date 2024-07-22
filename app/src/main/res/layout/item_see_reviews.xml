@@ -17,6 +17,7 @@
     android:foreground="?selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/outer_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -48,8 +49,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
             android:ellipsize="middle"
-            android:maxLines="5"
+            android:maxLines="2"
             android:maxWidth="300dp"
             android:textSize="15sp"
             android:textColor="@color/black"
@@ -58,8 +60,37 @@
             app:layout_constraintTop_toBottomOf="@+id/author_image"
             tools:text="Review" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/show_more_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show more"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:textStyle="bold"
+            android:textColor="@color/ic_launcher_background"
+            app:layout_constraintEnd_toEndOf="@id/outer_box"
+            app:layout_constraintBottom_toBottomOf="@id/outer_box"
+            app:layout_constraintTop_toBottomOf="@id/review_content_text"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/show_less_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show less"
+            android:textStyle="bold"
+            android:textColor="@color/ic_launcher_background"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="@id/outer_box"
+            app:layout_constraintBottom_toBottomOf="@id/outer_box"
+            app:layout_constraintTop_toBottomOf="@+id/review_content_text"
+            android:clickable="true"
+            android:visibility="gone"
+            android:focusable="true" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
-
-    <!--fitXY-->

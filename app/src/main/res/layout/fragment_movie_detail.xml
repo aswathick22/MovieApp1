@@ -10,6 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--<com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            tools:ignore="MissingConstraints">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </com.google.android.material.appbar.AppBarLayout>-->
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/movie_image"
             android:layout_width="match_parent"
@@ -20,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/movie_title"/>
+            app:layout_constraintBottom_toTopOf="@id/movie_title" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/movie_title"
@@ -29,6 +44,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
             android:textSize="30sp"
+            android:ellipsize="middle"
+            android:maxLines="2"
+            android:maxWidth="300dp"
             android:text=""
             android:textColor="@color/black"
             android:textStyle="bold"

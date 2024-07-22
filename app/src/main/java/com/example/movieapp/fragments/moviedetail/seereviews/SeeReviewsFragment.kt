@@ -14,6 +14,7 @@ class SeeReviewsFragment : Fragment() {
 
     private val seeReviewsViewModel by viewModels<SeeReviewsViewModel>()
     private lateinit var seeReviewsBinding: FragmentSeeReviewsBinding
+    private lateinit var adapter: SeeReviewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,11 +30,25 @@ class SeeReviewsFragment : Fragment() {
 
         val movieId = arguments?.getInt("movieId")
         seeReviewsViewModel.updateMovieId(movieId ?: 0)
-        seeReviewsViewModel.reviewDetail.observe(viewLifecycleOwner) { reviewdetails ->
+
+        adapter = SeeReviewAdapter(
+            emptyList(),
+            onShowMoreClick = { textView, _ -> textView.maxLines = Int.MAX_VALUE },
+            onShowLessClick = { textView, _ -> textView.maxLines = 3 }
+        )
+
+        seeReviewsBinding.reviewsRecyclerview.layoutManager = LinearLayoutManager(context)
+        seeReviewsBinding.reviewsRecyclerview.adapter = adapter
+
+        seeReviewsViewModel.reviewDetail.observe(viewLifecycleOwner) { reviewDetails ->
+            adapter.updateData(reviewDetails.results)
+        }
+
+        /*seeReviewsViewModel.reviewDetail.observe(viewLifecycleOwner) { reviewdetails ->
             seeReviewsBinding.reviewsRecyclerview.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 adapter = SeeReviewAdapter(reviewdetails.results)
             }
-        }
+        }*/
     }
 }

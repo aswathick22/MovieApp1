@@ -2,7 +2,6 @@ package com.example.movieapp.database
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
@@ -101,6 +100,15 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         db.close()
         return result
     }
+
+    /*fun deleteLastFourEntries() {
+        val db = this.writableDatabase
+        db.execSQL(
+            "DELETE FROM $TABLE_NAME WHERE $COLUMN_ID IN (" +
+                    "SELECT $COLUMN_ID FROM $TABLE_NAME ORDER BY $COLUMN_ID DESC LIMIT 4)"
+        )
+        db.close()
+    }*/
 
     /*fun updateUser (currentUsername: String, newUsername: String?, newEmail: String?, newPhone: String?, newPassword: String?): Boolean {
         val db = this.writableDatabase

@@ -31,6 +31,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /*dbHandler.deleteLastFourEntries()*/
+
         loginViewModel.username.observe(viewLifecycleOwner) { username ->
             loginBinding.etName.setText(username)
         }

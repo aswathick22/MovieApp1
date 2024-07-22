@@ -36,12 +36,21 @@ class CastDetailFragment : Fragment() {
                 .into(castDetailBinding.castImage)
             castDetailBinding.castName.text = castdetails.name
             castDetailBinding.castKnownFor.text = castdetails.knownForDepartment
-            castDetailBinding.castGender.text = castdetails.gender.toString()
+            castDetailBinding.castGender.text = getGenderText(castdetails.gender)
             castDetailBinding.castBirthday.text = castdetails.birthday
             castDetailBinding.castPlaceOfBirth.text = castdetails.placeOfBirth
             castDetailBinding.castBiography.text = castdetails.biography
         }
     }
+
+    private fun getGenderText(gender: Int?): String {
+        return when (gender) {
+            1 -> "Female"
+            2 -> "Male"
+            else -> "Unknown"
+        }
+    }
+
 }
 
 
