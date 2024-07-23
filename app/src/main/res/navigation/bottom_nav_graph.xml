@@ -79,4 +79,12 @@
             app:argType="integer"
             android:name="movieId" />
     </fragment>
+    <fragment
+        android:id="@+id/addedListFragment"
+        android:name="com.example.movieapp.addedlist.AddedListFragment"
+        android:label="AddedListFragment" >
+        <argument
+            app:argType="integer"
+            android:name="movieId" />
+    </fragment>
 </navigation>

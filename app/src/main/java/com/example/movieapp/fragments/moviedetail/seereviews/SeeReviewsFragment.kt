@@ -37,18 +37,18 @@ class SeeReviewsFragment : Fragment() {
             onShowLessClick = { textView, _ -> textView.maxLines = 3 }
         )
 
-        seeReviewsBinding.reviewsRecyclerview.layoutManager = LinearLayoutManager(context)
-        seeReviewsBinding.reviewsRecyclerview.adapter = adapter
-
-        seeReviewsViewModel.reviewDetail.observe(viewLifecycleOwner) { reviewDetails ->
-            adapter.updateData(reviewDetails.results)
-        }
-
-        /*seeReviewsViewModel.reviewDetail.observe(viewLifecycleOwner) { reviewdetails ->
-            seeReviewsBinding.reviewsRecyclerview.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = SeeReviewAdapter(reviewdetails.results)
+        seeReviewsViewModel.reviews.observe(viewLifecycleOwner) { reviewDetails ->
+            if (reviewDetails.isNullOrEmpty()) {
+                seeReviewsBinding.noReviewText.visibility = View.VISIBLE
+                seeReviewsBinding.reviewsRecyclerview.visibility = View.GONE
+            } else {
+                seeReviewsBinding.noReviewText.visibility = View.GONE
+                seeReviewsBinding.reviewsRecyclerview.visibility = View.VISIBLE
+                seeReviewsBinding.reviewsRecyclerview.layoutManager = LinearLayoutManager(context)
+                seeReviewsBinding.reviewsRecyclerview.adapter = adapter
+                adapter.updateData(reviewDetails)
             }
-        }*/
+
+        }
     }
 }

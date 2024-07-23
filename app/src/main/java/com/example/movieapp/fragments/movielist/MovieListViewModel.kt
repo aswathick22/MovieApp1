@@ -11,6 +11,7 @@ import com.example.movieapp.repository.MovieRepositoryImpl
 import kotlinx.coroutines.launch
 
 class MovieListViewModel : ViewModel() {
+
     private val _movieList = MutableLiveData<MovieResult>()
     val movieList : MutableLiveData<MovieResult> get() = _movieList
 

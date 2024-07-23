@@ -1,5 +1,6 @@
 package com.example.movieapp.repository
 
+import com.example.movieapp.remote.data.AddedList
 import com.example.movieapp.remote.data.MovieCastDetails
 import com.example.movieapp.remote.data.MovieCastList
 import com.example.movieapp.remote.data.MovieDetails
@@ -54,6 +55,10 @@ open class MovieRepositoryImpl(private val apiService : MovieRepository) : Movie
 
     override suspend fun getMovieTrailer(movieId: Int): MovieVideos {
         return apiService.getMovieTrailer(movieId)
+    }
+
+    override suspend fun getAddedList(movieId: Int): AddedList {
+        return apiService.getAddedList(movieId)
     }
 
 }

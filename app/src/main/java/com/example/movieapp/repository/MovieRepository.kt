@@ -1,6 +1,7 @@
 package com.example.movieapp.repository
 
 import com.example.movieapp.remote.api.MovieDBClient.API_KEY
+import com.example.movieapp.remote.data.AddedList
 import com.example.movieapp.remote.data.Cast
 import com.example.movieapp.remote.data.LatestMovieList
 import com.example.movieapp.remote.data.MovieCastDetails
@@ -52,6 +53,9 @@ interface MovieRepository {
 
     @GET("movie/{movie_id}/videos?api_key=$API_KEY&language=en-US")
     suspend fun getMovieTrailer(@Path("movie_id") movieId : Int) : MovieVideos
+
+    @GET("movie/{movie_id}/lists?api_key=$API_KEY&language=en-US")
+    suspend fun getAddedList(@Path("movie_id") movieId: Int) : AddedList
 }
 
 

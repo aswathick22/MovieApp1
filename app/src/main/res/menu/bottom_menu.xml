@@ -11,6 +11,11 @@
         android:title="@string/popular" />
 
     <item
+        android:id="@+id/addedListFragment"
+        android:icon="@drawable/add_list_icon"
+        android:title="List" />
+
+    <item
         android:id="@id/accountFragment"
         android:icon="@drawable/baseline_account_2_24"
         android:title="@string/account" />
