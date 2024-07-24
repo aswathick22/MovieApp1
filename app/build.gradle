@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.androidNavigationSafeArgs)
+    alias(libs.plugins.kotlinKsp)
+    /*alias(libs.plugins.kotlinKapt)*/
 }
 
 android {
@@ -59,6 +61,12 @@ dependencies {
     implementation libs.okhttp.logging.interceptor
     implementation libs.android.navigation.safeargs
     implementation libs.android.cardview
+
+    //Room Libraries
+    implementation libs.androidx.room.runtime
+    /*kapt libs.androidx.room.compiler*/
+    /*ksp libs.androidx.room.compiler*/
+    implementation libs.androidx.room.ktx
 
     //Unit Test Libraries
     testImplementation libs.junit

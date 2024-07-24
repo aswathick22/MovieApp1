@@ -9,8 +9,6 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.3"
-activityCompose = "1.9.0"
-composeBom = "2024.06.00"
 mockitoAndroid = "3.12.4"
 mockitoCore = "3.12.4"
 navigationFragmentKtx = "2.7.7"
@@ -21,8 +19,11 @@ moshi = "1.13.0"
 okhttp = "4.9.3"
 material = "1.12.0"
 picasso = "2.8"
+roomCompiler = "2.6.1"
+roomRuntime = "2.3.0"
 safeargs = "2.7.7"
 kapt = "2.0.0"
+ksp = "1.8.10-1.0.9"
 cardview = "1.0.0"
 junitJupiterVersion = "5.8.1"
 uiTestJunit4 = "1.6.8"
@@ -30,19 +31,15 @@ uiTestJunit4 = "1.6.8"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompiler" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 junit-junit-v412 = { module = "junit:junit", version.ref = "junitJunitVersion" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiterVersion" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
@@ -68,3 +65,4 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidNavigationSafeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs"}
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt"}
+kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
