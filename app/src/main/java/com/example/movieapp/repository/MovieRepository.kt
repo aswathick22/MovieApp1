@@ -56,6 +56,7 @@ interface MovieRepository {
 
     @GET("movie/{movie_id}/lists?api_key=$API_KEY&language=en-US")
     suspend fun getAddedList(@Path("movie_id") movieId: Int) : AddedList
+
 }
 
 
