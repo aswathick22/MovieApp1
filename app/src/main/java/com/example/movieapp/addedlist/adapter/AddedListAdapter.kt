@@ -33,7 +33,7 @@ class AddedListAdapter(private val mList: List<ResultXXXX>, /*private val onMovi
     }
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val imageView1 : ImageView = itemView.findViewById(R.id.list_image)
+        val imageView1 : ImageView = itemView.findViewById(R.id.movie_image)
         val textView1 : TextView = itemView.findViewById(R.id.list_name)
     }
 

@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Room::class], version = 1, exportSchema = false)
+@Database(entities = [UserMovieList::class], version = 1, exportSchema = false)
 abstract class MovieRoomDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
 
@@ -16,7 +16,7 @@ abstract class MovieRoomDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): MovieRoomDatabase {
             return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
+                val instance = androidx.room.Room.databaseBuilder(
                     context.applicationContext,
                     MovieRoomDatabase::class.java,
                     "movie_database"
@@ -28,4 +28,5 @@ abstract class MovieRoomDatabase : RoomDatabase() {
     }
 }
 
-}*/
+
+*/

@@ -1,3 +1,4 @@
+/*
 package com.example.movieapp.database.roomdatabase.data
 
 import androidx.room.Dao
@@ -7,11 +8,12 @@ import androidx.room.Query
 @Dao
     interface MovieDao {
         @Insert
-        suspend fun insert(movie: Room)
+        suspend fun insert(movie: UserMovieList)
 
         @Query("SELECT * FROM `list of movies` WHERE userId = :userId")
-        suspend fun getMoviesForUser(userId: String): List<Room>
+        suspend fun getMoviesForUser(userId: String): List<UserMovieList>
 
         @Query("DELETE FROM `list of movies` WHERE id = :movieId AND userId = :userId")
         suspend fun deleteMovieForUser(movieId: Int, userId: String)
     }
+*/
