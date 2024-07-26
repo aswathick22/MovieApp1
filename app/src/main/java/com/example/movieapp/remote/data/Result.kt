@@ -1,8 +1,11 @@
 package com.example.movieapp.remote.data
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+@Entity(tableName = "list of movies")
 
 @JsonClass(generateAdapter = true)
 data class MovieItem(
@@ -13,7 +16,7 @@ data class MovieItem(
     @Json(name = "genre_ids")
     val genreIds: List<Int>?,
     @Json(name = "id")
-    val id: Int,
+    @PrimaryKey val id: Int,
     @Json(name = "original_language")
     val originalLanguage: String?,
     @Json(name = "original_title")
