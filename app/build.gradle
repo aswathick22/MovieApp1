@@ -61,6 +61,8 @@ dependencies {
     implementation libs.okhttp.logging.interceptor
     implementation libs.android.navigation.safeargs
     implementation libs.android.cardview
+    implementation libs.material.v180
+    implementation libs.androidx.appcompat
 
     //Room Libraries
     implementation libs.androidx.room.runtime

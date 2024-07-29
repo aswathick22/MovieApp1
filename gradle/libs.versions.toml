@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.2"
+appcompat = "1.7.0"
 coreTesting = "2.2.0"
 junitJunit = "4.13.2"
 junitJunitVersion = "4.12"
@@ -9,6 +10,7 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.3"
+materialVersion = "1.8.0"
 mockitoAndroid = "3.12.4"
 mockitoCore = "3.12.4"
 navigationFragmentKtx = "2.7.7"
@@ -29,6 +31,7 @@ junitJupiterVersion = "5.8.1"
 uiTestJunit4 = "1.6.8"
 
 [libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
@@ -47,6 +50,7 @@ androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navi
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 junit-v412 = { module = "junit:junit", version.ref = "junitJunit" }
+material-v180 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoAndroid" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}

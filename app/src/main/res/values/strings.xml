@@ -3,4 +3,5 @@
     <string name="home">Home</string>
     <string name="popular">Popular</string>
     <string name="account">Account</string>
+    <string name="add_movie_to_list">Add movie to list</string>
 </resources>

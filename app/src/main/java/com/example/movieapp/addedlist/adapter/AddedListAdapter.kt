@@ -33,7 +33,7 @@ class AddListAdapter(private val onClick: (Int) -> Unit) : ListAdapter<UserList,
     class AddListViewHolder(private val binding: ItemAddListBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(userList: UserList, onClick: (Int) -> Unit) {
-            binding.listName.text = userList.listName
+            binding.listName.text = userList.listName.toString()
             binding.dropdownIcon.setOnClickListener {
                 // Logic to drop down the list of movies
             }

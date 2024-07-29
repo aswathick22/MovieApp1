@@ -7,6 +7,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -15,15 +17,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
+import com.example.movieapp.database.roomdatabase.data.UserList
+import com.example.movieapp.database.roomdatabase.data.UserListViewModel
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
 import com.example.movieapp.fragments.moviedetail.adapter.CastListAdapter
 import com.example.movieapp.remote.api.MovieDBClient
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 
 class MovieDetailFragment : Fragment() {
 
     private val mainViewModel by viewModels<MovieDetailViewModel>()
     private lateinit var movieDetailBinding: FragmentMovieDetailBinding
+    private val userListViewModel by viewModels<UserListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,18 +54,52 @@ class MovieDetailFragment : Fragment() {
                 return when (menuItem.itemId) {
                     R.id.watch_video -> {
                         val movieId = arguments?.getInt("movieId") ?: 0
-                        findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToWatchTrailerFragment(movieId))
+                        findNavController().navigate(
+                            MovieDetailFragmentDirections.actionMovieDetailFragmentToWatchTrailerFragment(
+                                movieId
+                            )
+                        )
                         true
                     }
+
                     R.id.see_reviews -> {
                         val movieId = arguments?.getInt("movieId") ?: 0
-                        findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToSeeReviewsFragment(movieId))
+                        findNavController().navigate(
+                            MovieDetailFragmentDirections.actionMovieDetailFragmentToSeeReviewsFragment(
+                                movieId
+                            )
+                        )
                         true
                     }
+
                     else -> false
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+
+        fun showAddToListDialog() {
+            val username = ""
+            userListViewModel.fetchUser(username)
+
+            userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
+                val checkedItems = BooleanArray(lists.size)
+                val listTitles = lists!!.map { it.listName }.toTypedArray()
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Add movie to list")
+                    /*.setMultiChoiceItems(listTitles, checkedItems, DialogInterface.OnMultiChoiceClickListener
+                    {
+                            _, which, isChecked -> checkedItems[which] = isChecked })*/
+                    builder.setPositiveButton("Add") { _, _ ->
+                        val movieId = arguments?.getInt("movieId")
+                        addMovieToSelectedLists(lists, checkedItems, movieId)
+                    }
+                    builder.setNegativeButton("Cancel", null)
+                    builder.create()
+                    builder.show()
+            }
+        }
+
 
         val movieId = arguments?.getInt("movieId")
         mainViewModel.updateMovieId(movieId ?: 0)
@@ -78,14 +118,42 @@ class MovieDetailFragment : Fragment() {
         mainViewModel.castList.observe(viewLifecycleOwner) { items ->
             movieDetailBinding.retrofitRecyclerview.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                /*recyclerView.layoutManager = layoutManager*/
                 adapter = CastListAdapter(items.cast) {
-                    findNavController().navigate(MovieDetailFragmentDirections.actionMovieDetailFragmentToCastDetailFragment(it.id))
+                    findNavController().navigate(
+                        MovieDetailFragmentDirections.actionMovieDetailFragmentToCastDetailFragment(
+                            it.id
+                        )
+                    )
                 }
+            }
+        }
+
+        val addToListFab: FloatingActionButton = movieDetailBinding.addActionButton
+        addToListFab.setOnLongClickListener {
+            val tooltip =
+                TooltipCompat.setTooltipText(addToListFab, getString(R.string.add_movie_to_list))
+            tooltip
+            true
+        }
+
+        addToListFab.setOnClickListener {
+            showAddToListDialog()
+        }
+    }
+
+    private fun addMovieToSelectedLists(lists: List<UserList>, checkedItems: BooleanArray, movieId: Int?) {
+        lists.forEachIndexed { index, userList ->
+            if (checkedItems[index]) {
+                userListViewModel.addMovieToList(userList.listId, movieId)
             }
         }
     }
 }
+
+
+
+
+
 
 
 
