@@ -17,7 +17,7 @@
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/item_add_list"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingClass,MissingConstraints" />
 
     </ScrollView>
 

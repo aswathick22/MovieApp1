@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class UserListViewModel (private val userListRepository: UserListRepository) : ViewModel() {
 
-    private val user = MutableLiveData<Map<String, String>>()
+    private val user = MutableLiveData<List<UserList>>()
     val lists = MutableLiveData<List<UserList>>()
     private val movies = MutableLiveData<List<MovieItem>>()
 
@@ -30,14 +30,14 @@ class UserListViewModel (private val userListRepository: UserListRepository) : V
         }
     }
 
-    fun addMovieToList(listId: Int, movieId: Int?) {
+    fun addMovieToList(list: UserList) {
         viewModelScope.launch {
-            userListRepository.addMovieToList(listId, movieId)
-            fetchMoviesForList(listId)
+            userListRepository.addMovieToList(list)
+            fetchMoviesForList(list)
         }
     }
 
-    private fun fetchMoviesForList(listId: Int) {
+    private fun fetchMoviesForList(listId: UserList) {
         viewModelScope.launch {
             val movieList = userListRepository.getMoviesForList(listId)
             movies.value = movieList

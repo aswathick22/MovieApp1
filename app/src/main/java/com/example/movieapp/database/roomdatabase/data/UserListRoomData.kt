@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class UserList(
     @PrimaryKey(autoGenerate = true) val listId: Int = 0,
     @ColumnInfo(name = "userId") val userId: String, // Foreign key from SQLite database
-    val listName: Int
+    val listName: String
 )
 
 

@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.androidNavigationSafeArgs)
     alias(libs.plugins.kotlinKsp)
-    /*alias(libs.plugins.kotlinKapt)*/
 }
 
 android {
@@ -66,8 +65,7 @@ dependencies {
 
     //Room Libraries
     implementation libs.androidx.room.runtime
-    /*kapt libs.androidx.room.compiler*/
-    /*ksp libs.androidx.room.compiler*/
+    ksp libs.androidx.room.compiler
     implementation libs.androidx.room.ktx
 
     //Unit Test Libraries
@@ -83,4 +81,8 @@ dependencies {
     androidTestImplementation libs.androidx.espresso.core
     androidTestImplementation libs.androidx.ui.test.junit4
 
+    //Epoxy RecyclerView Libraries
+    /*implementation libs.epoxy
+    ksp libs.epoxy.processor
+    ksp libs.android.epoxy.processor.v510*/
 }

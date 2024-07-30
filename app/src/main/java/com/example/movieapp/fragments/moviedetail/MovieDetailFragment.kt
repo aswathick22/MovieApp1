@@ -1,5 +1,6 @@
 package com.example.movieapp.fragments.moviedetail
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -77,8 +78,40 @@ class MovieDetailFragment : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        fun addMovieToSelectedLists(lists: List<UserList>, checkedItems: BooleanArray, movieId: Int?) {
+            movieId?.let {
+                lists.forEachIndexed { index, userList ->
+                    if (checkedItems[index]) {
+                        userListViewModel.addMovieToList(userList.listId, it)
+                    }
+                }
+            }
+        }
 
         fun showAddToListDialog() {
+            val username = "" // Replace with actual username retrieval logic
+            userListViewModel.fetchUser(username)
+
+            userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
+                val checkedItems = BooleanArray(lists.size)
+                val listTitles = lists.map { it.listName }.toTypedArray()
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Add movie to list")
+                    .setMultiChoiceItems(listTitles, checkedItems) { _: DialogInterface, which: Int, isChecked: Boolean ->
+                        checkedItems[which] = isChecked
+                    }
+                    .setPositiveButton("Add") { _:DialogInterface, _:Int ->
+                        val movieId = arguments?.getInt("movieId")
+                        addMovieToSelectedLists(lists, checkedItems, movieId)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .create()
+                    .show()
+            }
+        }
+
+        /*fun showAddToListDialog() {
             val username = ""
             userListViewModel.fetchUser(username)
 
@@ -87,18 +120,17 @@ class MovieDetailFragment : Fragment() {
                 val listTitles = lists!!.map { it.listName }.toTypedArray()
                 val builder = AlertDialog.Builder(requireContext())
                 builder.setTitle("Add movie to list")
-                    /*.setMultiChoiceItems(listTitles, checkedItems, DialogInterface.OnMultiChoiceClickListener
-                    {
-                            _, which, isChecked -> checkedItems[which] = isChecked })*/
+                    .setMultiChoiceItems(listTitles, checkedItems)
+                    { _ : DialogInterface, which : Int, isChecked : Boolean -> checkedItems[which] = isChecked }
                     builder.setPositiveButton("Add") { _, _ ->
                         val movieId = arguments?.getInt("movieId")
                         addMovieToSelectedLists(lists, checkedItems, movieId)
                     }
-                    builder.setNegativeButton("Cancel", null)
-                    builder.create()
-                    builder.show()
+                    .setNegativeButton("Cancel", null)
+                    .create()
+                    .show()
             }
-        }
+        }*/
 
 
         val movieId = arguments?.getInt("movieId")
@@ -141,13 +173,13 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    private fun addMovieToSelectedLists(lists: List<UserList>, checkedItems: BooleanArray, movieId: Int?) {
+    /*private fun addMovieToSelectedLists(lists: List<UserList>, checkedItems: BooleanArray, movieId: Int?) {
         lists.forEachIndexed { index, userList ->
             if (checkedItems[index]) {
                 userListViewModel.addMovieToList(userList.listId, movieId)
             }
         }
-    }
+    }*/
 }
 
 

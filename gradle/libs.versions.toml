@@ -2,15 +2,17 @@
 agp = "8.3.2"
 appcompat = "1.7.0"
 coreTesting = "2.2.0"
+epoxy = "5.1.0"
+epoxyProcessorVersion = "5.1.0"
 junitJunit = "4.13.2"
-junitJunitVersion = "4.12"
+junitJunitVersion = "4.13.2"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.3"
-materialVersion = "1.8.0"
+materialVersion = "1.12.0"
 mockitoAndroid = "3.12.4"
 mockitoCore = "3.12.4"
 navigationFragmentKtx = "2.7.7"
@@ -22,21 +24,23 @@ okhttp = "4.9.3"
 material = "1.12.0"
 picasso = "2.8"
 roomCompiler = "2.6.1"
-roomRuntime = "2.3.0"
+roomRuntime = "2.6.1"
 safeargs = "2.7.7"
-kapt = "2.0.0"
-ksp = "1.8.10-1.0.9"
+ksp = "1.9.10-1.0.13"
 cardview = "1.0.0"
 junitJupiterVersion = "5.8.1"
 uiTestJunit4 = "1.6.8"
 
 [libraries]
+android-epoxy-processor-v510 = { module = "com.airbnb.android:epoxy-processor", version.ref = "epoxyProcessorVersion" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompiler" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+epoxy = { module = "com.airbnb.android:epoxy", version.ref = "epoxy" }
+epoxy-processor = { module = "com.airbnb.android:epoxy-processor", version.ref = "epoxy" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 junit-junit-v412 = { module = "junit:junit", version.ref = "junitJunitVersion" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiterVersion" }
@@ -68,5 +72,4 @@ ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = 
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidNavigationSafeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs"}
-kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt"}
 kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "ksp"}

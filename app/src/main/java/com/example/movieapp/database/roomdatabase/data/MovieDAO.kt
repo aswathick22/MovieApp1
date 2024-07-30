@@ -11,13 +11,10 @@ import com.example.movieapp.remote.data.MovieItem
 interface UserListDao {
 
     @Query("SELECT * FROM user_lists WHERE userId = :username")
-    fun getUser(username: String): Map<String, String>?
+    fun getUser(username: String): List<UserList>/*Map<String, String>?*/
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(userList: UserList)
-
-    /*@Delete
-    suspend fun deleteList(userList: UserList)*/
 
     @Query("DELETE FROM user_lists WHERE listId = :listId")
     suspend fun deleteListById(listId: Int)
@@ -26,7 +23,7 @@ interface UserListDao {
     suspend fun clearListsForUser(userId: Int)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovie(movie: Int, movieId: Int?)
+    suspend fun insertMovie(list: UserList)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertListMovieCrossRef(crossRef: ListMovieCrossRef)
