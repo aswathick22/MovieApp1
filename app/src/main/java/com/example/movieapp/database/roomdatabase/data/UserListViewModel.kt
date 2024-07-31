@@ -9,7 +9,36 @@ import kotlinx.coroutines.launch
 
 class UserListViewModel (private val userListRepository: UserListRepository) : ViewModel() {
 
-    private val user = MutableLiveData<List<UserList>>()
+    val lists = MutableLiveData<List<UserList>>()
+    private val movies = MutableLiveData<List<MovieItem>>()
+
+    fun addListForUser(userList: UserList) {
+        viewModelScope.launch {
+            userListRepository.addListForUser(userList)
+            fetchLists(userList.userId)
+        }
+    }
+
+    fun fetchLists(userId: String) {
+        viewModelScope.launch {
+            lists.value = userListRepository.getListsForUser(userId)
+        }
+    }
+
+    fun addMovieToList(listId: Int, movieId: Int) {
+        viewModelScope.launch {
+            userListRepository.addMovieToList(listId, movieId)
+            fetchMoviesForList(listId)
+        }
+    }
+
+    private fun fetchMoviesForList(listId: Int) {
+        viewModelScope.launch {
+            movies.value = userListRepository.getMoviesForList(listId)
+        }
+    }
+
+    /*private val user = MutableLiveData<List<UserList>>()
     val lists = MutableLiveData<List<UserList>>()
     private val movies = MutableLiveData<List<MovieItem>>()
 
@@ -30,19 +59,19 @@ class UserListViewModel (private val userListRepository: UserListRepository) : V
         }
     }
 
-    fun addMovieToList(list: UserList) {
+    fun addMovieToList(list: Int, movieId: Int) {
         viewModelScope.launch {
-            userListRepository.addMovieToList(list)
-            fetchMoviesForList(list)
+            userListRepository.addMovieToList(list, movieId)
+            fetchMoviesForList(list, movieId)
         }
     }
 
-    private fun fetchMoviesForList(listId: UserList) {
+    private fun fetchMoviesForList(listId: Int, movieId: Int) {
         viewModelScope.launch {
-            val movieList = userListRepository.getMoviesForList(listId)
+            val movieList = userListRepository.getMoviesForList(listId, movieId)
             movies.value = movieList
         }
-    }
+    }*/
     }
 
     class ViewModelFactory(private val userListRepository: UserListRepository) : ViewModelProvider.Factory {

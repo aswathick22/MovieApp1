@@ -1,5 +1,6 @@
 package com.example.movieapp.fragments.moviedetail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +12,7 @@ import com.example.movieapp.remote.data.MovieDetails
 import com.example.movieapp.repository.MovieRepositoryImpl
 import kotlinx.coroutines.launch
 
-class MovieDetailViewModel(private val repository: UserListRepository) : ViewModel() {
+class MovieDetailViewModel(private val userListRepository: UserListRepository) : ViewModel() {
 
     private val movieIdLiveData = MutableLiveData(0)
 
@@ -21,16 +22,19 @@ class MovieDetailViewModel(private val repository: UserListRepository) : ViewMod
     private val _castList = MutableLiveData<MovieCastList>()
     val castList : MutableLiveData<MovieCastList> get() = _castList
 
-    fun getUserLists(userId: String, onResult: (List<UserList>) -> Unit) {
+    private val _userLists = MutableLiveData<List<UserList>>()
+    val userLists: LiveData<List<UserList>> get() = _userLists
+
+    fun getUserLists(userId: String) {
         viewModelScope.launch {
-            val lists = repository.getListsForUser(userId)
-            onResult(lists)
+            val lists = userListRepository.getListsForUser(userId)
+            _userLists.value = lists
         }
     }
 
-    fun addMovieToList(listId: Int, movieId: Int?) {
+    fun addMovieToList(listId: Int, movieId: Int) {
         viewModelScope.launch {
-            repository.addMovieToList(listId, movieId)
+            userListRepository.addMovieToList(listId, movieId)
         }
     }
 

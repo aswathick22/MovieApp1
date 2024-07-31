@@ -36,6 +36,12 @@
             app:argType="integer"
             android:name="movieId">
         </argument>
+        <!--<argument
+            app:argType="integer"
+            android:name="listId" />
+        <argument
+            app:argType="string"
+            android:name="listName" />-->
         <action
             android:id="@+id/action_movieDetailFragment_to_castDetailFragment"
             app:destination="@id/castDetailFragment" />
@@ -83,11 +89,12 @@
         android:id="@+id/addedListFragment"
         android:name="com.example.movieapp.addedlist.AddedListFragment"
         android:label="AddedListFragment" >
-        <argument
-            app:argType="integer"
-            android:name="movieId" />
         <action
             android:id="@+id/action_addedListFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+            app:destination="@id/movieDetailFragment" >
+            <argument
+                app:argType="integer"
+                android:name="movieId" />
+        </action>
     </fragment>
 </navigation>

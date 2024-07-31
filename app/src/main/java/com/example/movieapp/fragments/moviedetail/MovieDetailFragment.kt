@@ -1,6 +1,5 @@
 package com.example.movieapp.fragments.moviedetail
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,6 +7,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.MenuHost
@@ -18,8 +19,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
+import com.example.movieapp.database.roomdatabase.data.MovieDetailViewModelFactory
 import com.example.movieapp.database.roomdatabase.data.UserList
+import com.example.movieapp.database.roomdatabase.data.UserListRepository
 import com.example.movieapp.database.roomdatabase.data.UserListViewModel
+import com.example.movieapp.database.roomdatabase.data.UserListViewModelFactory
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
 import com.example.movieapp.fragments.moviedetail.adapter.CastListAdapter
 import com.example.movieapp.remote.api.MovieDBClient
@@ -28,9 +32,13 @@ import com.squareup.picasso.Picasso
 
 class MovieDetailFragment : Fragment() {
 
-    private val mainViewModel by viewModels<MovieDetailViewModel>()
     private lateinit var movieDetailBinding: FragmentMovieDetailBinding
-    private val userListViewModel by viewModels<UserListViewModel>()
+    private val movieDetailViewModel: MovieDetailViewModel by viewModels {
+        MovieDetailViewModelFactory(UserListRepository(requireContext()))
+    }
+    private val userListViewModel: UserListViewModel by viewModels {
+        UserListViewModelFactory(UserListRepository(requireContext()))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +51,15 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val userId = arguments?.getString("userId") ?: ""
+        if (userId != "") {
+            movieDetailViewModel.getUserLists(userId)
+        }
+
+        movieDetailViewModel.userLists.observe(viewLifecycleOwner){
+            setupFab(movieDetailBinding.addActionButton, emptyList(), null)
+        }
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -78,64 +95,9 @@ class MovieDetailFragment : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        fun addMovieToSelectedLists(lists: List<UserList>, checkedItems: BooleanArray, movieId: Int?) {
-            movieId?.let {
-                lists.forEachIndexed { index, userList ->
-                    if (checkedItems[index]) {
-                        userListViewModel.addMovieToList(userList.listId, it)
-                    }
-                }
-            }
-        }
-
-        fun showAddToListDialog() {
-            val username = "" // Replace with actual username retrieval logic
-            userListViewModel.fetchUser(username)
-
-            userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
-                val checkedItems = BooleanArray(lists.size)
-                val listTitles = lists.map { it.listName }.toTypedArray()
-
-                AlertDialog.Builder(requireContext())
-                    .setTitle("Add movie to list")
-                    .setMultiChoiceItems(listTitles, checkedItems) { _: DialogInterface, which: Int, isChecked: Boolean ->
-                        checkedItems[which] = isChecked
-                    }
-                    .setPositiveButton("Add") { _:DialogInterface, _:Int ->
-                        val movieId = arguments?.getInt("movieId")
-                        addMovieToSelectedLists(lists, checkedItems, movieId)
-                    }
-                    .setNegativeButton("Cancel", null)
-                    .create()
-                    .show()
-            }
-        }
-
-        /*fun showAddToListDialog() {
-            val username = ""
-            userListViewModel.fetchUser(username)
-
-            userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
-                val checkedItems = BooleanArray(lists.size)
-                val listTitles = lists!!.map { it.listName }.toTypedArray()
-                val builder = AlertDialog.Builder(requireContext())
-                builder.setTitle("Add movie to list")
-                    .setMultiChoiceItems(listTitles, checkedItems)
-                    { _ : DialogInterface, which : Int, isChecked : Boolean -> checkedItems[which] = isChecked }
-                    builder.setPositiveButton("Add") { _, _ ->
-                        val movieId = arguments?.getInt("movieId")
-                        addMovieToSelectedLists(lists, checkedItems, movieId)
-                    }
-                    .setNegativeButton("Cancel", null)
-                    .create()
-                    .show()
-            }
-        }*/
-
-
         val movieId = arguments?.getInt("movieId")
-        mainViewModel.updateMovieId(movieId ?: 0)
-        mainViewModel.movieDetail.observe(viewLifecycleOwner) { moviedetails ->
+        movieDetailViewModel.updateMovieId(movieId ?: 0)
+        movieDetailViewModel.movieDetail.observe(viewLifecycleOwner) { moviedetails ->
             Picasso.get().load(MovieDBClient.POSTER_BASE_URL + moviedetails.posterPath)
                 .placeholder(R.drawable.poster_placeholder)
                 .noFade()
@@ -147,7 +109,7 @@ class MovieDetailFragment : Fragment() {
             movieDetailBinding.movieRuntime.text = moviedetails.runtime.toString()
             movieDetailBinding.movieReleaseDate.text = moviedetails.runtime.toString()
         }
-        mainViewModel.castList.observe(viewLifecycleOwner) { items ->
+        movieDetailViewModel.castList.observe(viewLifecycleOwner) { items ->
             movieDetailBinding.retrofitRecyclerview.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 adapter = CastListAdapter(items.cast) {
@@ -159,28 +121,80 @@ class MovieDetailFragment : Fragment() {
                 }
             }
         }
+    }
 
-        val addToListFab: FloatingActionButton = movieDetailBinding.addActionButton
+    private fun addMovieToSelectedLists(
+        lists: List<UserList>,
+        checkedItems: BooleanArray,
+        movieId: Int?
+    ) {
+        movieId?.let {
+            lists.forEachIndexed { index, userList ->
+                if (checkedItems[index]) {
+                    userListViewModel.addMovieToList(userList.listId, movieId)
+                }
+            }
+        }
+    }
+
+    private fun showAddToListDialog(lists: List<UserList>, movieId: Int?) {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        dialogBuilder.setTitle("Add movie to list")
+
+        if (lists.isEmpty()) {
+            // When no lists are created
+            val messageView = LayoutInflater.from(requireContext()).inflate(R.layout.item_no_lists, null)
+            dialogBuilder.setView(messageView)
+        } else {
+            // When lists are available
+            val listView = LayoutInflater.from(requireContext()).inflate(R.layout.item_user_lists, null)
+            val listContainer = listView.findViewById<LinearLayout>(R.id.list_container)
+            val checkedItems = BooleanArray(lists.size)
+
+            lists.forEachIndexed { index, list ->
+                val checkBox = CheckBox(requireContext()).apply {
+                    text = list.listName
+                    id = list.listId
+                    setOnCheckedChangeListener { _, isChecked ->
+                        checkedItems[index] = isChecked
+                    }
+                }
+                listContainer.addView(checkBox)
+            }
+
+            dialogBuilder.setView(listView)
+            dialogBuilder.setPositiveButton("Add") { _, _ ->
+                // Handle adding the movie to selected lists
+                addMovieToSelectedLists(lists, checkedItems, movieId)
+            }
+        }
+
+        dialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        dialogBuilder.create().show()
+    }
+
+    private fun setupFab(addToListFab: FloatingActionButton, lists: List<UserList>, movieId: Int?) {
         addToListFab.setOnLongClickListener {
-            val tooltip =
-                TooltipCompat.setTooltipText(addToListFab, getString(R.string.add_movie_to_list))
-            tooltip
+            TooltipCompat.setTooltipText(addToListFab, getString(R.string.add_movie_to_list))
             true
         }
 
         addToListFab.setOnClickListener {
-            showAddToListDialog()
+            showAddToListDialog(lists, movieId)
         }
     }
-
-    /*private fun addMovieToSelectedLists(lists: List<UserList>, checkedItems: BooleanArray, movieId: Int?) {
-        lists.forEachIndexed { index, userList ->
-            if (checkedItems[index]) {
-                userListViewModel.addMovieToList(userList.listId, movieId)
-            }
-        }
-    }*/
 }
+
+
+
+
+
+
+
+
 
 
 
