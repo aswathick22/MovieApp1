@@ -36,12 +36,6 @@
             app:argType="integer"
             android:name="movieId">
         </argument>
-        <!--<argument
-            app:argType="integer"
-            android:name="listId" />
-        <argument
-            app:argType="string"
-            android:name="listName" />-->
         <action
             android:id="@+id/action_movieDetailFragment_to_castDetailFragment"
             app:destination="@id/castDetailFragment" />
@@ -59,6 +53,9 @@
                 app:argType="integer"
                 android:name="movieId" />
         </action>
+        <action
+            android:id="@+id/action_movieDetailFragment_to_movieListFragment"
+            app:destination="@id/movieListFragment" />
     </fragment>
     <fragment
         android:id="@+id/castDetailFragment"
@@ -92,6 +89,9 @@
         <action
             android:id="@+id/action_addedListFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" >
+            <argument
+                android:name="userId"
+                app:argType="integer" />
             <argument
                 app:argType="integer"
                 android:name="movieId" />

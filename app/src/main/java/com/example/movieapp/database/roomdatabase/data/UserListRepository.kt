@@ -1,6 +1,7 @@
 package com.example.movieapp.database.roomdatabase.data
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.example.movieapp.remote.data.MovieItem
 
 class UserListRepository(context: Context) {
@@ -15,12 +16,24 @@ class UserListRepository(context: Context) {
         userListDao.insertListMovieCrossRef(crossRef)
     }
 
-    suspend fun getListsForUser(userId: String): List<UserList> {
+    suspend fun getListsForUser(userId: Int?): List<UserList> {
         return userListDao.getListsForUser(userId)
     }
 
     suspend fun getMoviesForList(listId: Int): List<MovieItem> {
         return userListDao.getMoviesForList(listId)
+    }
+
+    fun getUserLists(userId: Int): LiveData<List<UserList>> {
+        return userListDao.getAllLists(userId)
+    }
+
+    suspend fun deleteList(listId: Int) {
+        userListDao.deleteList(listId)
+    }
+
+    suspend fun clearAllLists(userId: Int) {
+        userListDao.clearAllLists(userId)
     }
 
     /*fun getUser(username: String): List<UserList> {

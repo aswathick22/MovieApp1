@@ -19,6 +19,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
+import com.example.movieapp.database.SharedPreferenceManager
 import com.example.movieapp.database.roomdatabase.data.MovieDetailViewModelFactory
 import com.example.movieapp.database.roomdatabase.data.UserList
 import com.example.movieapp.database.roomdatabase.data.UserListRepository
@@ -52,10 +53,8 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userId = arguments?.getString("userId") ?: ""
-        if (userId != "") {
-            movieDetailViewModel.getUserLists(userId)
-        }
+        val userId = SharedPreferenceManager.getUserId(requireContext())
+        movieDetailViewModel.getUserLists(userId)
 
         movieDetailViewModel.userLists.observe(viewLifecycleOwner){
             setupFab(movieDetailBinding.addActionButton, emptyList(), null)
@@ -154,6 +153,69 @@ class MovieDetailFragment : Fragment() {
             lists.forEachIndexed { index, list ->
                 val checkBox = CheckBox(requireContext()).apply {
                     text = list.listName
+                    setOnCheckedChangeListener { _, isChecked ->
+                        checkedItems[index] = isChecked
+                    }
+                }
+                listContainer.addView(checkBox)
+            }
+
+            dialogBuilder.setView(listView)
+            dialogBuilder.setPositiveButton("Add") { _, _ ->
+                addMovieToSelectedLists(lists, checkedItems, movieId)
+            }
+        }
+
+        dialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        dialogBuilder.create().show()
+    }
+
+    private fun setupFab(addToListFab: FloatingActionButton, lists: List<UserList>, movieId: Int?) {
+        addToListFab.setOnLongClickListener {
+            TooltipCompat.setTooltipText(addToListFab, getString(R.string.add_movie_to_list))
+            true
+        }
+
+        addToListFab.setOnClickListener {
+            showAddToListDialog(lists, movieId)
+        }
+    }
+
+
+    /*private fun addMovieToSelectedLists(
+        lists: List<UserList>,
+        checkedItems: BooleanArray,
+        movieId: Int?
+    ) {
+        movieId?.let {
+            lists.forEachIndexed { index, userList ->
+                if (checkedItems[index]) {
+                    userListViewModel.addMovieToList(userList.listId, movieId)
+                }
+            }
+        }
+    }
+
+    private fun showAddToListDialog(lists: List<UserList>, movieId: Int?) {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        dialogBuilder.setTitle("Add movie to list")
+
+        if (lists.isEmpty()) {
+            // When no lists are created
+            val messageView = LayoutInflater.from(requireContext()).inflate(R.layout.item_no_lists, null)
+            dialogBuilder.setView(messageView)
+        } else {
+            // When lists are available
+            val listView = LayoutInflater.from(requireContext()).inflate(R.layout.item_user_lists, null)
+            val listContainer = listView.findViewById<LinearLayout>(R.id.list_container)
+            val checkedItems = BooleanArray(lists.size)
+
+            lists.forEachIndexed { index, list ->
+                val checkBox = CheckBox(requireContext()).apply {
+                    text = list.listName
                     id = list.listId
                     setOnCheckedChangeListener { _, isChecked ->
                         checkedItems[index] = isChecked
@@ -185,7 +247,7 @@ class MovieDetailFragment : Fragment() {
         addToListFab.setOnClickListener {
             showAddToListDialog(lists, movieId)
         }
-    }
+    }*/
 }
 
 

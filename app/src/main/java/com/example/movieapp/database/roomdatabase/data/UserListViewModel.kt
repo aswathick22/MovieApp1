@@ -19,7 +19,7 @@ class UserListViewModel (private val userListRepository: UserListRepository) : V
         }
     }
 
-    fun fetchLists(userId: String) {
+    fun fetchLists(userId: Int?) {
         viewModelScope.launch {
             lists.value = userListRepository.getListsForUser(userId)
         }
@@ -37,6 +37,19 @@ class UserListViewModel (private val userListRepository: UserListRepository) : V
             movies.value = userListRepository.getMoviesForList(listId)
         }
     }
+
+    fun deleteList(listId: Int) {
+        viewModelScope.launch {
+            userListRepository.deleteList(listId)
+        }
+    }
+
+    fun clearAllLists(userId: Int) {
+        viewModelScope.launch {
+            userListRepository.clearAllLists(userId)
+        }
+    }
+
 
     /*private val user = MutableLiveData<List<UserList>>()
     val lists = MutableLiveData<List<UserList>>()

@@ -19,6 +19,22 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         private const val COLUMN_EMAIL = "email"
     }
 
+    fun getUserId(username: String, password: String): Int? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT userId FROM users WHERE username = ? AND password = ?",
+            arrayOf(username, password)
+        )
+        return if (cursor.moveToFirst()) {
+            cursor.getInt(cursor.getColumnIndexOrThrow("userId"))
+        } else {
+            null
+        }.also {
+            cursor.close()
+            db.close()
+        }
+    }
+
     override fun onCreate(db: SQLiteDatabase) {
 
         val query = ((((("CREATE TABLE $TABLE_NAME" + " ("

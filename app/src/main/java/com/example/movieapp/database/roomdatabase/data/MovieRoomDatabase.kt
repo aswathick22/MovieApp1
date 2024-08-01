@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.movieapp.remote.data.MovieItem
 
-@Database(entities = [UserList::class, MovieItem::class, ListMovieCrossRef::class], version = 1, exportSchema = false)
+@Database(entities = [UserList::class, MovieItem::class, ListMovieCrossRef::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MovieRoomDatabase : RoomDatabase() {
     abstract fun userListDao(): UserListDao
@@ -22,7 +22,9 @@ abstract class MovieRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     MovieRoomDatabase::class.java,
                     "app_database"
-                ).build()
+                )
+                .fallbackToDestructiveMigration()
+                .build()
                 INSTANCE = instance
                 instance
             }

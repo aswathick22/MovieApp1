@@ -25,7 +25,7 @@ class MovieDetailViewModel(private val userListRepository: UserListRepository) :
     private val _userLists = MutableLiveData<List<UserList>>()
     val userLists: LiveData<List<UserList>> get() = _userLists
 
-    fun getUserLists(userId: String) {
+    fun getUserLists(userId: Int?) {
         viewModelScope.launch {
             val lists = userListRepository.getListsForUser(userId)
             _userLists.value = lists

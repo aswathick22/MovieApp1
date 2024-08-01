@@ -1,5 +1,6 @@
 package com.example.movieapp.database.roomdatabase.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -21,17 +22,28 @@ interface UserListDao {
 
     @Transaction
     @Query("SELECT * FROM user_lists WHERE userId = :userId")
-    suspend fun getListsForUser(userId: String): List<UserList>
+    suspend fun getListsForUser(userId: Int?): List<UserList>
 
     @Transaction
     @Query("SELECT * FROM `list of movies` INNER JOIN ListMovieCrossRef ON `list of movies`.id = ListMovieCrossRef.movieId WHERE ListMovieCrossRef.listId = :listId")
     suspend fun getMoviesForList(listId: Int): List<MovieItem>
 
+    @Query("SELECT * FROM user_lists WHERE userId = :userId")
+    fun getAllLists(userId: Int): LiveData<List<UserList>>
+
     @Query("DELETE FROM user_lists WHERE listId = :listId")
+    suspend fun deleteList(listId: Int)
+
+    @Query("DELETE FROM user_lists WHERE userId = :userId")
+    suspend fun clearAllLists(userId: Int)
+
+}
+
+    /*@Query("DELETE FROM user_lists WHERE listId = :listId")
     suspend fun deleteListById(listId: Int)
 
     @Query("DELETE FROM user_lists WHERE userId = :userId")
-    suspend fun clearListsForUser(userId: Int)
+    suspend fun clearListsForUser(userId: Int)*/
 
     /*@Query("SELECT * FROM user_lists WHERE userId = :username")
     fun getUser(username: String): List<UserList>*//*Map<String, String>?*//*
@@ -52,5 +64,5 @@ interface UserListDao {
     @Transaction
     @Query("SELECT * FROM `list of movies` INNER JOIN ListMovieCrossRef ON movieId = ListMovieCrossRef.movieId WHERE ListMovieCrossRef.listId = :listId")
     suspend fun getMoviesForList(listId: Int): List<MovieItem>*/
-}
+
 
