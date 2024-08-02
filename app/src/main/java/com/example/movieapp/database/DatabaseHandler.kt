@@ -91,6 +91,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         }
         return if (cursor.moveToFirst()) {
             val user = mapOf(
+                "userId" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID)),
                 "username" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME)),
                 "phone" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE)),
                 "email" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL)),

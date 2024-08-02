@@ -17,11 +17,11 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
-import com.example.movieapp.database.SharedPreferenceManager
+import com.example.movieapp.database.DatabaseHandler
+import com.example.movieapp.database.SharedPreferencesManager
 import com.example.movieapp.database.roomdatabase.data.MovieDetailViewModelFactory
 import com.example.movieapp.database.roomdatabase.data.UserList
 import com.example.movieapp.database.roomdatabase.data.UserListRepository
@@ -36,6 +36,7 @@ import com.squareup.picasso.Picasso
 class MovieDetailFragment : Fragment() {
 
     private lateinit var movieDetailBinding: FragmentMovieDetailBinding
+    private lateinit var dbHandler: DatabaseHandler
     private val movieDetailViewModel: MovieDetailViewModel by viewModels {
         MovieDetailViewModelFactory(UserListRepository(requireContext()))
     }
@@ -49,16 +50,17 @@ class MovieDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         movieDetailBinding = FragmentMovieDetailBinding.inflate(inflater, container, false)
+        dbHandler = DatabaseHandler(requireContext())
         return movieDetailBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userId = SharedPreferenceManager.getUserId(requireContext())
-        movieDetailViewModel.getUserLists(userId)
+        val userId = SharedPreferencesManager.getUserId(requireContext())
+        userListViewModel.fetchLists(userId)
 
-        movieDetailViewModel.userLists.observe(viewLifecycleOwner) { lists ->
+        userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
             if (lists.isNullOrEmpty()) {
                 Log.d("MovieDetailFragment", "No lists found for userId: $userId")
             } else {

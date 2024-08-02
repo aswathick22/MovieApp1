@@ -21,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
 import com.example.movieapp.addedlist.adapter.AddListAdapter
+import com.example.movieapp.database.SharedPreferencesManager
 import com.example.movieapp.database.roomdatabase.data.UserList
 import com.example.movieapp.database.roomdatabase.data.UserListRepository
 import com.example.movieapp.database.roomdatabase.data.UserListViewModel
@@ -29,9 +30,6 @@ import com.example.movieapp.databinding.FragmentAddedListBinding
 
 class AddedListFragment : Fragment() {
 
-    private val addedListViewModel: UserListViewModel by viewModels {
-        UserListViewModelFactory(UserListRepository(requireContext()))
-    }
     private var addedListBinding: FragmentAddedListBinding? = null
     private val userListViewModel: UserListViewModel by viewModels {
         UserListViewModelFactory(UserListRepository(requireContext()))
@@ -55,16 +53,20 @@ class AddedListFragment : Fragment() {
         setupRecyclerView()
         setupAddButton()
 
-        val userId = arguments?.getInt("userId") ?: 1
+        val userId = SharedPreferencesManager.getUserId(requireContext())
+        userListViewModel.fetchLists(userId)
+
+        /*val userId = arguments?.getInt("userId") ?: 1*/
+
         val movieId = arguments?.getInt("movieId")
 
-        addedListViewModel.lists.observe(viewLifecycleOwner) { lists ->
+        userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
             adapter.submitList(lists)
         }
 
-        addedListViewModel.fetchLists(userId)
+        /*addedListViewModel.fetchLists(userId)*/
         if (movieId != null) {
-            addedListViewModel.addMovieToList(userId, movieId)
+            userListViewModel.addMovieToList(userId, movieId)
         }
 
         val menuHost: MenuHost = requireActivity()
@@ -151,7 +153,7 @@ class AddedListFragment : Fragment() {
     }
 
     private fun showDeleteListDialog() {
-        val lists = addedListViewModel.lists.value ?: return
+        val lists = userListViewModel.lists.value ?: return
         val dialogBuilder = AlertDialog.Builder(requireContext())
         dialogBuilder.setTitle("Delete Lists")
 
@@ -177,7 +179,7 @@ class AddedListFragment : Fragment() {
             dialogBuilder.setPositiveButton("Delete") { _, _ ->
                 lists.forEachIndexed { index, list ->
                     if (checkedItems[index]) {
-                        addedListViewModel.deleteList(list.listId)
+                        userListViewModel.deleteList(list.listId)
                     }
                 }
             }
@@ -193,7 +195,7 @@ class AddedListFragment : Fragment() {
             .setTitle("Clear All Lists")
             .setMessage("Are you sure you want to delete all lists?")
             .setPositiveButton("Yes") { _, _ ->
-                addedListViewModel.clearAllLists(userId)
+                userListViewModel.clearAllLists(userId)
             }
             .setNegativeButton("Cancel", null)
             .create()
@@ -224,7 +226,7 @@ class AddedListFragment : Fragment() {
         builder.show()
     }
 
-    private fun showAddListDialog() {
+    /*private fun showAddListDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Add New List")
 
@@ -245,7 +247,7 @@ class AddedListFragment : Fragment() {
         }
 
         builder.show()
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
