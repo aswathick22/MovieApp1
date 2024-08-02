@@ -25,13 +25,12 @@ import com.example.movieapp.database.roomdatabase.data.UserList
 import com.example.movieapp.database.roomdatabase.data.UserListRepository
 import com.example.movieapp.database.roomdatabase.data.UserListViewModel
 import com.example.movieapp.database.roomdatabase.data.UserListViewModelFactory
-import com.example.movieapp.database.roomdatabase.data.ViewModelFactory
 import com.example.movieapp.databinding.FragmentAddedListBinding
 
 class AddedListFragment : Fragment() {
 
     private val addedListViewModel: UserListViewModel by viewModels {
-        ViewModelFactory(UserListRepository(requireContext()))
+        UserListViewModelFactory(UserListRepository(requireContext()))
     }
     private var addedListBinding: FragmentAddedListBinding? = null
     private val userListViewModel: UserListViewModel by viewModels {
@@ -56,7 +55,7 @@ class AddedListFragment : Fragment() {
         setupRecyclerView()
         setupAddButton()
 
-        val userId = arguments?.getInt("userId") ?: -1
+        val userId = arguments?.getInt("userId") ?: 1
         val movieId = arguments?.getInt("movieId")
 
         addedListViewModel.lists.observe(viewLifecycleOwner) { lists ->
@@ -89,12 +88,55 @@ class AddedListFragment : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.sort_list_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.sort_az -> {
+                        sortListsByNameAscending()
+                        true
+                    }
+                    R.id.sort_za -> {
+                        sortListsByNameDescending()
+                        true
+                    }
+                    R.id.sort_date_created -> {
+                        sortListsByDateCreated()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+    }
+
+    private fun sortListsByNameAscending() {
+        userListViewModel.lists.value?.let { lists ->
+            adapter.submitList(lists.sortedBy { it.listName })
+        }
+    }
+
+    private fun sortListsByNameDescending() {
+        userListViewModel.lists.value?.let { lists ->
+            adapter.submitList(lists.sortedByDescending { it.listName })
+        }
+    }
+
+    private fun sortListsByDateCreated() {
+        userListViewModel.lists.value?.let { lists ->
+            adapter.submitList(lists.sortedBy { it.listId })
+        }
     }
 
     private fun setupRecyclerView() {
         adapter = AddListAdapter {
-            val userId = arguments?.getInt("userId") ?: -1
+            val userId = arguments?.getInt("userId") ?: 1
             val movieId = arguments?.getInt("movieId")
+
             if(movieId != null) {
                 findNavController().navigate(AddedListFragmentDirections.actionAddedListFragmentToMovieDetailFragment(userId, movieId)) }
         }
@@ -146,7 +188,7 @@ class AddedListFragment : Fragment() {
     }
 
     private fun showClearAllListsDialog() {
-        val userId = arguments?.getInt("userId") ?: -1
+        val userId = arguments?.getInt("userId") ?: 1
         AlertDialog.Builder(requireContext())
             .setTitle("Clear All Lists")
             .setMessage("Are you sure you want to delete all lists?")
@@ -162,7 +204,7 @@ class AddedListFragment : Fragment() {
     private fun showCreateListDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Create New List")
-        val userId = arguments?.getInt("userId") ?: -1
+        val userId = arguments?.getInt("userId") ?: 1
         val input = EditText(requireContext())
         builder.setView(input)
 

@@ -49,6 +49,7 @@ class UserListViewModel (private val userListRepository: UserListRepository) : V
             userListRepository.clearAllLists(userId)
         }
     }
+}
 
 
     /*private val user = MutableLiveData<List<UserList>>()
@@ -85,17 +86,7 @@ class UserListViewModel (private val userListRepository: UserListRepository) : V
             movies.value = movieList
         }
     }*/
-    }
 
-    class ViewModelFactory(private val userListRepository: UserListRepository) : ViewModelProvider.Factory {
 
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return if (modelClass.isAssignableFrom(UserListViewModel::class.java)) {
-                UserListViewModel(userListRepository) as T
-            } else {
-                throw IllegalArgumentException("ViewModel Not Found")
-            }
-        }
-    }
+
 

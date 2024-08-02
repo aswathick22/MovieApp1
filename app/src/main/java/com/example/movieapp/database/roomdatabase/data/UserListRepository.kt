@@ -2,6 +2,7 @@ package com.example.movieapp.database.roomdatabase.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.movieapp.remote.data.MovieItem
 
 class UserListRepository(context: Context) {
@@ -22,10 +23,6 @@ class UserListRepository(context: Context) {
 
     suspend fun getMoviesForList(listId: Int): List<MovieItem> {
         return userListDao.getMoviesForList(listId)
-    }
-
-    fun getUserLists(userId: Int): LiveData<List<UserList>> {
-        return userListDao.getAllLists(userId)
     }
 
     suspend fun deleteList(listId: Int) {
