@@ -57,18 +57,7 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userId = SharedPreferencesManager.getUserId(requireContext())
-        userListViewModel.fetchLists(userId)
-
-        userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
-            if (lists.isNullOrEmpty()) {
-                Log.d("MovieDetailFragment", "No lists found for userId: $userId")
-            } else {
-                Log.d("MovieDetailFragment", "Lists found: ${lists.size}")
-            }
-            val movieId = arguments?.getInt("movieId")
-            setupFab(movieDetailBinding.addActionButton, lists, movieId)
-        }
+        fetchUserLists()
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -129,6 +118,21 @@ class MovieDetailFragment : Fragment() {
                     )
                 }
             }
+        }
+    }
+
+    private fun fetchUserLists(){
+        val userId = SharedPreferencesManager.getUserId(requireContext())
+        userListViewModel.fetchLists(userId)
+
+        userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
+            if (lists.isNullOrEmpty()) {
+                Log.d("MovieDetailFragment", "No lists found for userId: $userId")
+            } else {
+                Log.d("MovieDetailFragment", "Lists found: ${lists.size}")
+            }
+            val movieId = arguments?.getInt("movieId")
+            setupFab(movieDetailBinding.addActionButton, lists, movieId)
         }
     }
 

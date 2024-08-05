@@ -1,6 +1,7 @@
 package com.example.movieapp.repository
 
 import com.example.movieapp.remote.data.AddedList
+import com.example.movieapp.remote.data.Buy
 import com.example.movieapp.remote.data.MovieCastDetails
 import com.example.movieapp.remote.data.MovieCastList
 import com.example.movieapp.remote.data.MovieDetails
@@ -8,6 +9,8 @@ import com.example.movieapp.remote.data.MovieResult
 import com.example.movieapp.remote.data.MovieReview
 import com.example.movieapp.remote.data.MovieVideos
 import com.example.movieapp.remote.data.PopularMovieList
+import com.example.movieapp.remote.data.Rent
+import com.example.movieapp.remote.data.WatchProviders
 
 
 open class MovieRepositoryImpl(private val apiService: MovieRepository/*, private val movieDao: MovieDao*/) : MovieRepository{
@@ -60,16 +63,12 @@ open class MovieRepositoryImpl(private val apiService: MovieRepository/*, privat
         return apiService.getAddedList(movieId)
     }
 
- /*   suspend fun insert(movie: UserMovieList) {
-        movieDao.insert(movie)
+    override suspend fun buyMovie(movieId: Int): Buy {
+        return apiService.buyMovie(movieId)
     }
 
-    suspend fun getMoviesForUser(userId: String): List<UserMovieList> {
-        return movieDao.getMoviesForUser(userId)
+    override suspend fun rentMovie(movieId: Int): Rent {
+        return apiService.rentMovie(movieId)
     }
-
-    suspend fun deleteMovieForUser(movieId: Int, userId: String) {
-        movieDao.deleteMovieForUser(movieId, userId)
-    }*/
 
 }

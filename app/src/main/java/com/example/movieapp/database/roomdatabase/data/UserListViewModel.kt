@@ -2,7 +2,6 @@ package com.example.movieapp.database.roomdatabase.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.remote.data.MovieItem
 import kotlinx.coroutines.launch
@@ -19,9 +18,10 @@ class UserListViewModel (private val userListRepository: UserListRepository) : V
         }
     }
 
-    fun fetchLists(userId: Int?) {
+    fun fetchLists(userId: Int) {
         viewModelScope.launch {
-            lists.value = userListRepository.getListsForUser(userId)
+            val list = userListRepository.getListsForUser(userId)
+            lists.postValue(list)
         }
     }
 
@@ -52,40 +52,7 @@ class UserListViewModel (private val userListRepository: UserListRepository) : V
 }
 
 
-    /*private val user = MutableLiveData<List<UserList>>()
-    val lists = MutableLiveData<List<UserList>>()
-    private val movies = MutableLiveData<List<MovieItem>>()
 
-    fun fetchUser(username : String) {
-        user.value = userListRepository.getUser(username)
-    }
-
-    private fun fetchLists(userId: String) {
-        viewModelScope.launch {
-            lists.value = userListRepository.getListsForUser(userId)
-        }
-    }
-
-    fun addList(userList: UserList) {
-        viewModelScope.launch {
-            userListRepository.addListForUser(userList)
-            fetchLists(userList.userId)
-        }
-    }
-
-    fun addMovieToList(list: Int, movieId: Int) {
-        viewModelScope.launch {
-            userListRepository.addMovieToList(list, movieId)
-            fetchMoviesForList(list, movieId)
-        }
-    }
-
-    private fun fetchMoviesForList(listId: Int, movieId: Int) {
-        viewModelScope.launch {
-            val movieList = userListRepository.getMoviesForList(listId, movieId)
-            movies.value = movieList
-        }
-    }*/
 
 
 

@@ -1,6 +1,7 @@
 package com.example.movieapp.addedlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -52,22 +53,7 @@ class AddedListFragment : Fragment() {
 
         setupRecyclerView()
         setupAddButton()
-
-        val userId = SharedPreferencesManager.getUserId(requireContext())
-        userListViewModel.fetchLists(userId)
-
-        /*val userId = arguments?.getInt("userId") ?: 1*/
-
-        val movieId = arguments?.getInt("movieId")
-
-        userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
-            adapter.submitList(lists)
-        }
-
-        /*addedListViewModel.fetchLists(userId)*/
-        if (movieId != null) {
-            userListViewModel.addMovieToList(userId, movieId)
-        }
+        fetchUserLists()
 
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -116,6 +102,21 @@ class AddedListFragment : Fragment() {
 
     }
 
+    private fun fetchUserLists(){
+        val userId = SharedPreferencesManager.getUserId(requireContext())
+        userListViewModel.fetchLists(userId)
+
+        val movieId = arguments?.getInt("movieId")
+
+        userListViewModel.lists.observe(viewLifecycleOwner) { lists ->
+            adapter.submitList(lists)
+        }
+
+        if (movieId != null) {
+            userListViewModel.addMovieToList(userId, movieId)
+        }
+    }
+
     private fun sortListsByNameAscending() {
         userListViewModel.lists.value?.let { lists ->
             adapter.submitList(lists.sortedBy { it.listName })
@@ -138,9 +139,11 @@ class AddedListFragment : Fragment() {
         adapter = AddListAdapter {
             val userId = arguments?.getInt("userId") ?: 1
             val movieId = arguments?.getInt("movieId")
+            val listId = arguments?.getInt("listId") ?: 1
+            val listName = arguments?.getString("listName") ?: ""
 
             if(movieId != null) {
-                findNavController().navigate(AddedListFragmentDirections.actionAddedListFragmentToMovieDetailFragment(userId, movieId)) }
+                findNavController().navigate(AddedListFragmentDirections.actionAddedListFragmentToMovieDetailFragment(userId, movieId, listName, listId)) }
         }
         addedListBinding?.listRecyclerview?.layoutManager = LinearLayoutManager(requireContext())
         addedListBinding?.listRecyclerview?.adapter = adapter
@@ -185,7 +188,6 @@ class AddedListFragment : Fragment() {
             }
             dialogBuilder.setNegativeButton("Cancel", null)
         }
-
         dialogBuilder.create().show()
     }
 
@@ -225,29 +227,6 @@ class AddedListFragment : Fragment() {
 
         builder.show()
     }
-
-    /*private fun showAddListDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Add New List")
-
-        val input = EditText(requireContext())
-        input.hint = "List Name"
-        builder.setView(input)
-
-        builder.setPositiveButton("Add") { _, _ ->
-            val listName = input.text.toString().trim()
-            if (listName.isNotEmpty()) {
-                val newUserList = UserList(0, 0, listName)
-                userListViewModel.addListForUser(newUserList)
-            }
-        }
-
-        builder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.cancel()
-        }
-
-        builder.show()
-    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

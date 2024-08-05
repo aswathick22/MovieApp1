@@ -93,6 +93,12 @@
                 android:name="userId"
                 app:argType="integer" />
             <argument
+                android:name="listId"
+                app:argType="integer" />
+            <argument
+                android:name="listName"
+                app:argType="string" />
+            <argument
                 app:argType="integer"
                 android:name="movieId" />
         </action>

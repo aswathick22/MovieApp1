@@ -10,21 +10,21 @@
         android:id="@+id/account_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:text="Account Details"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_margin="20dp"
         android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey"
         android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_icon" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -33,18 +33,18 @@
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
         android:src="@drawable/name_icon"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/account_details" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey"
         android:layout_marginTop="15dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/account_details"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_details" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/name_icon"
@@ -76,21 +76,21 @@
         android:layout_height="40dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="28dp"
-        android:src="@drawable/edit_icon"
         android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/edit_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_icon"
-        tools:ignore="NotSibling"
-        android:focusable="true" />
+        tools:ignore="NotSibling" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey"
         android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_text"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_text" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/mobile_icon"
@@ -120,21 +120,21 @@
         android:layout_height="40dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="28dp"
-        android:src="@drawable/edit_icon"
         android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/edit_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_name_icon"
-        tools:ignore="NotSibling"
-        android:focusable="true" />
+        tools:ignore="NotSibling" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="4dp"
-        android:background="@color/grey"
         android:layout_marginTop="23dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mobile_text" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -165,20 +165,20 @@
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="28dp"
-        android:src="@drawable/edit_icon"
         android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/edit_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_phone_icon"
-        tools:ignore="NotSibling"
-        android:focusable="true" />
+        tools:ignore="NotSibling" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey"
         android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mail_text" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -197,8 +197,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="44dp"
-        android:text="@{accountViewModel.password}"
         android:inputType="textPassword"
+        android:text="@{accountViewModel.password}"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@id/password_icon"
@@ -210,20 +210,20 @@
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="28dp"
-        android:src="@drawable/edit_icon"
         android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/edit_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_mail_icon"
-        tools:ignore="NotSibling"
-        android:focusable="true" />
+        tools:ignore="NotSibling" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey"
         android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_text" />
 
     <com.google.android.material.button.MaterialButton
@@ -232,21 +232,20 @@
         android:layout_height="65dp"
         android:layout_marginTop="70dp"
         android:text="Logout"
-        app:backgroundTint="@color/black"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        app:cornerRadius="20dp"
         android:textAllCaps="false"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/black"
+        app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/password_text" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--@{accountViewModel.username}-->
-<!--android:src="@drawable/profile_icon"-->
-<!--android:src="@drawable/profile_icon"-->
-<!---->
-<!--android:background="@drawable/app_background"-->
+    <!--android:src="@drawable/profile_icon"-->
+    <!--android:src="@drawable/profile_icon"-->
+    <!---->
+    <!--android:background="@drawable/app_background"-->
 
