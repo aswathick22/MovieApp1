@@ -10,7 +10,6 @@ import com.example.movieapp.remote.data.MovieReview
 import com.example.movieapp.remote.data.MovieVideos
 import com.example.movieapp.remote.data.PopularMovieList
 import com.example.movieapp.remote.data.Rent
-import com.example.movieapp.remote.data.WatchProviders
 
 
 open class MovieRepositoryImpl(private val apiService: MovieRepository/*, private val movieDao: MovieDao*/) : MovieRepository{

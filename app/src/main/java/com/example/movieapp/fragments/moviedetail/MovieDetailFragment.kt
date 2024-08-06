@@ -119,6 +119,12 @@ class MovieDetailFragment : Fragment() {
                 }
             }
         }
+        /*movieDetailBinding.buyButton.setOnClickListener{
+            findNavController().navigate(MovieDetailFragmentDirections.)
+        }
+        movieDetailBinding.rentButton.setOnClickListener{
+            findNavController().navigate(MovieDetailFragmentDirections.)
+        }*/
     }
 
     private fun fetchUserLists(){
