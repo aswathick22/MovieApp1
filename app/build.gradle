@@ -51,17 +51,19 @@ dependencies {
     implementation libs.androidx.navigation.fragment.ktx
     implementation libs.androidx.navigation.ui.ktx
     implementation libs.androidx.navigation.runtime.ktx
-    implementation libs.retrofit
-    implementation libs.retrofit.converter.moshi
-    implementation libs.moshi
-    implementation libs.moshi.kotlin
     implementation libs.android.picasso
     implementation libs.android.material
-    implementation libs.okhttp.logging.interceptor
     implementation libs.android.navigation.safeargs
     implementation libs.android.cardview
     implementation libs.material.v180
     implementation libs.androidx.appcompat
+
+    //Retrofit Libraries
+    implementation libs.retrofit
+    implementation libs.retrofit.converter.moshi
+    implementation libs.moshi
+    implementation libs.moshi.kotlin
+    implementation libs.okhttp.logging.interceptor
 
     //Room Libraries
     implementation libs.androidx.room.runtime
