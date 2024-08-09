@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/rent_movie_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="Rent Movie"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/movie_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintTop_toBottomOf="@id/rent_movie_text" >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/movie_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/poster_placeholder"
+            app:layout_constraintBottom_toBottomOf="@id/movie_item"
+            app:layout_constraintStart_toStartOf="@id/movie_item"
+            app:layout_constraintTop_toTopOf="@id/movie_item" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/movie_details"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/movie_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie name"
+                android:textSize="25sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/movie_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="15sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/confirm_rent_button"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:cornerRadius="12dp"
+        android:layout_margin="15dp"
+        android:text="Confirm Rent Movie"
+        app:layout_constraintTop_toBottomOf="@id/movie_item"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

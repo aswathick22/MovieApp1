@@ -49,8 +49,6 @@ class LoginFragment : Fragment() {
         }
 
         loginBinding.bnLogin.setOnClickListener {
-            /*loginViewModel.setUsername(loginBinding.etName.text.toString())
-            loginViewModel.setPassword(loginBinding.etPassword.text.toString())*/
             val enteredUsername = loginBinding.etName.text.toString()
             val password = loginBinding.etPassword.text.toString()
             loginViewModel.setUsername(enteredUsername)
