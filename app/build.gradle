@@ -83,6 +83,9 @@ dependencies {
     androidTestImplementation libs.androidx.espresso.core
     androidTestImplementation libs.androidx.ui.test.junit4
 
+    //Razorpay Payment Gateway
+    implementation libs.android.razorpay
+
     //Epoxy RecyclerView Libraries
     /*implementation libs.epoxy
     ksp libs.epoxy.processor

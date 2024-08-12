@@ -11,10 +11,21 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:text="Buy Movie"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/close_buy_sheet_button"
+        android:layout_width="35dp"
+        android:layout_height="30dp"
+        android:layout_margin="12dp"
+        android:scaleType="fitCenter"
+        android:background="@color/white"
+        android:src="@drawable/close_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/movie_item"
@@ -47,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Movie name"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/movie_price"
@@ -65,9 +76,11 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         app:cornerRadius="12dp"
-        android:layout_margin="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="30dp"
         android:text="Confirm Buy Movie"
         app:layout_constraintTop_toBottomOf="@id/movie_item"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
