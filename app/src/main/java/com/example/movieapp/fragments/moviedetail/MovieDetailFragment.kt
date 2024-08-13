@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -38,17 +39,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.razorpay.Checkout
+import com.razorpay.PaymentResultListener
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import kotlin.random.Random
 
-class MovieDetailFragment : Fragment() {
+class MovieDetailFragment : Fragment(), PaymentResultListener {
 
     private lateinit var movieDetailBinding: FragmentMovieDetailBinding
     private lateinit var buyMovieBinding: BottomSheetBuyMovieBinding
     private lateinit var rentMovieBinding: BottomSheetRentMovieBinding
     private lateinit var dbHandler: DatabaseHandler
-    private val checkout: Checkout = Checkout()
+    private lateinit var checkout : Checkout
     private val movieDetailViewModel: MovieDetailViewModel by viewModels {
         MovieDetailViewModelFactory(UserListRepository(requireContext()))
     }
@@ -63,12 +65,14 @@ class MovieDetailFragment : Fragment() {
     ): View? {
         movieDetailBinding = FragmentMovieDetailBinding.inflate(inflater, container, false)
         dbHandler = DatabaseHandler(requireContext())
-        checkout.setKeyID("rzp_test_EGOJy2Yfi323xO")
         return movieDetailBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        checkout = Checkout()
+        checkout.setKeyID("rzp_test_ElTnwFZKSUpd46")
 
         fetchUserLists()
 
@@ -181,7 +185,7 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "SetTextI18n")
     private fun showRentBottomSheet(movieId: Int?) {
 
         rentMovieBinding = BottomSheetRentMovieBinding.inflate(layoutInflater)
@@ -219,15 +223,15 @@ class MovieDetailFragment : Fragment() {
         try {
             options.put("name", "Movie App")
             options.put("description", "Movie Purchase")
-            options.put("image", "https://your_logo_url")
             options.put("theme.color", "#3399cc")
+            options.put("image", "https://your_logo_url")
             options.put("currency", "INR")
             options.put("amount", amount * 100)
-            options.put("prefill.email", "email@example.com")
-            options.put("prefill.contact", "9876543210")
-
+            options.put("prefill.email", "")
+            options.put("prefill.contact", "")
             checkout.open(activity, options)
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             e.printStackTrace()
         }
     }
@@ -312,14 +316,12 @@ class MovieDetailFragment : Fragment() {
         bottomNavGraph?.visibility = View.VISIBLE
     }
 
-    fun onPaymentSuccess(razorpayPaymentId: String?) {
+    override fun onPaymentSuccess(razorpayPaymentId: String?) {
         Toast.makeText(requireContext(), "Payment Successful: $razorpayPaymentId", Toast.LENGTH_LONG).show()
-        // Handle the payment success, e.g., update UI or database
     }
 
-    fun onPaymentError(code: Int, response: String?) {
+    override fun onPaymentError(code: Int, response: String?) {
         Toast.makeText(requireContext(), "Payment Failed: $response", Toast.LENGTH_LONG).show()
-        // Handle the payment failure, e.g., show error message
     }
 
 }
