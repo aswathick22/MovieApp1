@@ -1,8 +1,11 @@
 package com.example.movieapp.fragments.moviedetail
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.movieapp.database.DatabaseHandler
 import com.example.movieapp.database.roomdatabase.data.UserListRepository
 import com.example.movieapp.remote.api.MovieDBClient
 import com.example.movieapp.remote.data.Buy
@@ -28,6 +31,18 @@ class MovieDetailViewModel(private val userListRepository: UserListRepository) :
     private val _rentMovie = MutableLiveData<Rent>()
     val rentMovie : MutableLiveData<Rent> get() = _rentMovie
 
+    private val _username = MutableLiveData<String>()
+    val username: MutableLiveData<String> get() = _username
+
+    private val _phone = MutableLiveData<String>()
+    val phone: MutableLiveData<String> get() = _phone
+
+    private val _email = MutableLiveData<String>()
+    val email: MutableLiveData<String> get() = _email
+
+    private lateinit var dbHandler: DatabaseHandler
+
+
     /*private val _userLists = MutableLiveData<List<UserList>>()
     val userLists: MutableLiveData<List<UserList>> get() = _userLists
 
@@ -43,6 +58,18 @@ class MovieDetailViewModel(private val userListRepository: UserListRepository) :
             userListRepository.addMovieToList(listId, movieId)
         }
     }*/
+    fun fetchUser(context : Context, username: String) {
+        dbHandler = DatabaseHandler(context)
+        val user = dbHandler.fetchUser(username)
+        if(user!=null) {
+            _phone.value = user["phone"]
+            _email.value = user["email"]
+            Log.d("AccountViewModel", "Fetched User: $user")
+        }
+        else{
+            Log.d("AccountViewModel", "User not found")
+        }
+    }
 
     fun updateMovieId(movieId : Int){
         movieIdLiveData.value = movieId

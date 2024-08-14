@@ -227,8 +227,8 @@ class MovieDetailFragment : Fragment(), PaymentResultListener {
             options.put("image", "https://your_logo_url")
             options.put("currency", "INR")
             options.put("amount", amount * 100)
-            options.put("prefill.email", "")
-            options.put("prefill.contact", "")
+            options.put("prefill.email", movieDetailViewModel.email)
+            options.put("prefill.contact", movieDetailViewModel.phone)
             checkout.open(activity, options)
         }
         catch (e: Exception) {
