@@ -35,7 +35,6 @@ class AddedListFragment : Fragment() {
     private val userListViewModel: UserListViewModel by viewModels {
         UserListViewModelFactory(UserListRepository(requireContext()))
     }
-
     private lateinit var adapter: AddListAdapter
 
     override fun onCreateView(
@@ -43,7 +42,10 @@ class AddedListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        adapter = AddListAdapter {
 
+        }
+        addedListBinding?.listRecyclerview?.adapter = adapter
         addedListBinding = FragmentAddedListBinding.inflate(inflater, container, false)
         return addedListBinding!!.root
     }

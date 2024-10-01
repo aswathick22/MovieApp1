@@ -15,7 +15,7 @@ object SharedPreferencesManager {
 
     fun getUserId(context: Context): Int {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        return sharedPreferences.getInt(USER_ID_KEY, -1)
+        return sharedPreferences.getInt(USER_ID_KEY, 1)
     }
 
 }

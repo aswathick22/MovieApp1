@@ -301,6 +301,9 @@ class MovieDetailFragment : Fragment(), PaymentResultListener {
     }
 
     private fun setupFab(addToListFab: FloatingActionButton, lists: List<UserList>, movieId: Int?) {
+/*
+        fetchUserLists()
+*/
         addToListFab.setOnLongClickListener {
             TooltipCompat.setTooltipText(addToListFab, getString(R.string.add_movie_to_list))
             true

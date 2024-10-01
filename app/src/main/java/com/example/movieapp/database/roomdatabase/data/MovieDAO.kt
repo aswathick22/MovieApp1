@@ -20,11 +20,11 @@ interface UserListDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertListMovieCrossRef(crossRef: ListMovieCrossRef)
 
-    /*@Transaction*/
+    @Transaction
     @Query("SELECT * FROM user_lists WHERE userId = :userId")
     suspend fun getListsForUser(userId: Int?): List<UserList>
 
-    /*@Transaction*/
+    @Transaction
     @Query("SELECT * FROM `list of movies` INNER JOIN ListMovieCrossRef ON `list of movies`.id = ListMovieCrossRef.movieId WHERE ListMovieCrossRef.listId = :listId")
     suspend fun getMoviesForList(listId: Int): List<MovieItem>
 
