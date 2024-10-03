@@ -38,7 +38,7 @@ class AddListAdapter(private val onClick: (Int) -> Unit) : ListAdapter<UserList,
                 val isCurrentlyExpanded = expandedState[adapterPosition, false]
                 expandedState.put(adapterPosition, !isCurrentlyExpanded)
                 /*binding.dropdownIcon.setImageResource(R.drawable.dropdown_icon)*/
-                adapter.notifyItemChanged(adapterPosition)
+                /*adapter.notifyItemChanged(adapterPosition)*/
             }
 
             binding.dropupIcon.setOnClickListener {

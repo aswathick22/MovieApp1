@@ -42,8 +42,8 @@ class AddedListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        adapter = AddListAdapter {
-
+        adapter = AddListAdapter{listName ->
+            println("$listName is clicked")
         }
         addedListBinding?.listRecyclerview?.adapter = adapter
         addedListBinding = FragmentAddedListBinding.inflate(inflater, container, false)
