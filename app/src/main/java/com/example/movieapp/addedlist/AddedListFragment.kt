@@ -21,28 +21,37 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
-import com.example.movieapp.addedlist.adapter.AddListAdapter
+import com.example.movieapp.addedlist.adapter.AddedListAdapter
 import com.example.movieapp.database.SharedPreferencesManager
+import com.example.movieapp.database.roomdatabase.data.MovieDetailViewModelFactory
 import com.example.movieapp.database.roomdatabase.data.UserList
 import com.example.movieapp.database.roomdatabase.data.UserListRepository
 import com.example.movieapp.database.roomdatabase.data.UserListViewModel
 import com.example.movieapp.database.roomdatabase.data.UserListViewModelFactory
 import com.example.movieapp.databinding.FragmentAddedListBinding
+import com.example.movieapp.databinding.ItemAddMovieListBinding
+import com.example.movieapp.fragments.moviedetail.MovieDetailViewModel
+import com.example.movieapp.remote.api.MovieDBClient
+import com.squareup.picasso.Picasso
 
 class AddedListFragment : Fragment() {
 
     private var addedListBinding: FragmentAddedListBinding? = null
+    private var addMovieListBinding: ItemAddMovieListBinding? = null
     private val userListViewModel: UserListViewModel by viewModels {
         UserListViewModelFactory(UserListRepository(requireContext()))
     }
-    private lateinit var adapter: AddListAdapter
+    private val movieDetailViewModel: MovieDetailViewModel by viewModels {
+        MovieDetailViewModelFactory(UserListRepository(requireContext()))
+    }
+    private lateinit var adapter: AddedListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        adapter = AddListAdapter{listName ->
+        adapter = AddedListAdapter{listName ->
             println("$listName is clicked")
         }
         addedListBinding?.listRecyclerview?.adapter = adapter
@@ -102,6 +111,15 @@ class AddedListFragment : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        movieDetailViewModel.movieDetail.observe(viewLifecycleOwner) { moviedetails ->
+            Picasso.get().load(MovieDBClient.POSTER_BASE_URL + moviedetails.posterPath)
+                .placeholder(R.drawable.poster_placeholder)
+                .noFade()
+                .into(addMovieListBinding?.movieImage)
+            addMovieListBinding?.movieName?.text = moviedetails.title
+            addMovieListBinding?.movieReleaseDate?.text = moviedetails.releaseDate
+        }
+
     }
 
     private fun fetchUserLists(){
@@ -138,7 +156,7 @@ class AddedListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = AddListAdapter {
+        adapter = AddedListAdapter {
             val userId = arguments?.getInt("userId") ?: 1
             val movieId = arguments?.getInt("movieId")
             val listId = arguments?.getInt("listId") ?: 1

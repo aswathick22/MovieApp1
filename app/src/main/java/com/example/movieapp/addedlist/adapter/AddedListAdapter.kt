@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.movieapp.databinding.ItemAddListBinding
 
-class AddListAdapter(private val onClick: (Int) -> Unit) : ListAdapter<UserList, AddListAdapter.AddListViewHolder>(DiffCallback) {
+class AddedListAdapter(private val onClick: (Int) -> Unit) : ListAdapter<UserList, AddedListAdapter.AddListViewHolder>(DiffCallback) {
 
     private val expandedState = SparseBooleanArray()
 
@@ -26,24 +26,32 @@ class AddListAdapter(private val onClick: (Int) -> Unit) : ListAdapter<UserList,
 
     inner class AddListViewHolder(private val binding: ItemAddListBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        private lateinit var adapter: AddListAdapter
-
         fun bind(userList: UserList, isExpanded: Boolean) {
             binding.listName.text = userList.listName
 
             binding.movieRecyclerview.visibility = if (isExpanded) View.VISIBLE else View.GONE
+            binding.dropdownIcon.visibility = if (isExpanded) View.GONE else View.VISIBLE
+            binding.dropupIcon.visibility = if (isExpanded) View.VISIBLE else View.GONE
+
+            binding.dropdownIcon.isClickable = true
+            binding.dropupIcon.isClickable = true
 
             binding.dropdownIcon.setOnClickListener {
+                /*val isCurrentlyExpanded = expandedState[adapterPosition, false]*/
+                expandedState.put(adapterPosition, true)
                 binding.movieRecyclerview.visibility = View.VISIBLE
-                val isCurrentlyExpanded = expandedState[adapterPosition, false]
-                expandedState.put(adapterPosition, !isCurrentlyExpanded)
-                /*binding.dropdownIcon.setImageResource(R.drawable.dropdown_icon)*/
-                /*adapter.notifyItemChanged(adapterPosition)*/
+                binding.dropdownIcon.visibility = View.GONE
+                binding.dropupIcon.visibility = View.VISIBLE
+                notifyItemChanged(adapterPosition)
             }
 
             binding.dropupIcon.setOnClickListener {
+                /*val isCurrentlyExpanded = expandedState[adapterPosition, true]*/
+                expandedState.put(adapterPosition, false)
                 binding.movieRecyclerview.visibility = View.GONE
-                adapter.notifyItemChanged(adapterPosition)
+                binding.dropdownIcon.visibility = View.VISIBLE
+                binding.dropupIcon.visibility = View.GONE
+                notifyItemChanged(adapterPosition)
             }
 
             binding.root.setOnClickListener {
