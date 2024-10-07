@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentCastDetailBinding
+import com.example.movieapp.fragments.castdetail.adapter.CastDetailAdapter
+import com.example.movieapp.fragments.moviedetail.MovieDetailFragmentDirections
+import com.example.movieapp.fragments.moviedetail.adapter.CastListAdapter
 import com.example.movieapp.remote.api.MovieDBClient
 import com.squareup.picasso.Picasso
 
@@ -40,6 +45,13 @@ class CastDetailFragment : Fragment() {
             castDetailBinding.castBirthday.text = castdetails.birthday
             castDetailBinding.castPlaceOfBirth.text = castdetails.placeOfBirth
             castDetailBinding.castBiography.text = castdetails.biography
+        }
+
+        castViewModel.getMoviesForCast(personId ?: 0).observe(viewLifecycleOwner) {movies ->
+            castDetailBinding.retrofitRecyclerview.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter = CastDetailAdapter(movies)
+            }
         }
     }
 

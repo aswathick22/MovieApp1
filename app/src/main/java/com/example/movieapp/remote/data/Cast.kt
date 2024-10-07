@@ -1,8 +1,12 @@
 package com.example.movieapp.remote.data
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+
+@Entity(tableName = "list of cast")
 
 @JsonClass(generateAdapter = true)
 data class Cast(
@@ -17,7 +21,7 @@ data class Cast(
     @Json(name = "gender")
     val gender: Int,
     @Json(name = "id")
-    val id: Int,
+    @PrimaryKey val id: Int,
     @Json(name = "known_for_department")
     val knownForDepartment: String,
     @Json(name = "name")
