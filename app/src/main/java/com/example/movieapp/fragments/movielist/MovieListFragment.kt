@@ -35,7 +35,7 @@ class MovieListFragment : Fragment() {
                 movieListBinding.retrofitRecyclerview.visibility = View.VISIBLE
                 layoutManager = GridLayoutManager(context,2)
                 adapter = MovieListAdapter(items.results){
-                    findNavController().navigate(MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(it.id))
+                    findNavController().navigate(MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(it.id,))
                 }
             }
         }

@@ -19,6 +19,22 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         private const val COLUMN_EMAIL = "email"
     }
 
+    fun getUserId(username: String, password: String): Int? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT userId FROM users WHERE username = ? AND password = ?",
+            arrayOf(username, password)
+        )
+        return if (cursor.moveToFirst()) {
+            cursor.getInt(cursor.getColumnIndexOrThrow("userId"))
+        } else {
+            null
+        }.also {
+            cursor.close()
+            db.close()
+        }
+    }
+
     override fun onCreate(db: SQLiteDatabase) {
 
         val query = ((((("CREATE TABLE $TABLE_NAME" + " ("
@@ -75,6 +91,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         }
         return if (cursor.moveToFirst()) {
             val user = mapOf(
+                "userId" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID)),
                 "username" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USERNAME)),
                 "phone" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE)),
                 "email" to cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL)),

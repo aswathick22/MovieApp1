@@ -1,10 +1,10 @@
 package com.example.movieapp.fragments.popular
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.remote.api.MovieDBClient
-import com.example.movieapp.remote.data.MovieResult
 import com.example.movieapp.remote.data.PopularMovieList
 import com.example.movieapp.repository.MovieRepositoryImpl
 import kotlinx.coroutines.launch

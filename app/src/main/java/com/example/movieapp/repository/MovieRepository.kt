@@ -2,20 +2,16 @@ package com.example.movieapp.repository
 
 import com.example.movieapp.remote.api.MovieDBClient.API_KEY
 import com.example.movieapp.remote.data.AddedList
-import com.example.movieapp.remote.data.Cast
-import com.example.movieapp.remote.data.LatestMovieList
+import com.example.movieapp.remote.data.Buy
 import com.example.movieapp.remote.data.MovieCastDetails
 import com.example.movieapp.remote.data.MovieCastList
 import com.example.movieapp.remote.data.MovieDetails
-import com.example.movieapp.remote.data.MovieItem
 import com.example.movieapp.remote.data.MovieResult
 import com.example.movieapp.remote.data.MovieReview
 import com.example.movieapp.remote.data.MovieVideos
 import com.example.movieapp.remote.data.PopularMovieList
-import com.example.movieapp.remote.data.ResultXXX
-import com.example.movieapp.remote.data.UpcomingMovieList
+import com.example.movieapp.remote.data.Rent
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -56,6 +52,13 @@ interface MovieRepository {
 
     @GET("movie/{movie_id}/lists?api_key=$API_KEY&language=en-US")
     suspend fun getAddedList(@Path("movie_id") movieId: Int) : AddedList
+
+    @GET("movie/{movie_id}/watch/providers?api_key=$API_KEY&language=en-US")
+    suspend fun buyMovie(@Path("movie_id") movieId: Int) : Buy
+
+    @GET("movie/{movie_id}/watch/providers?api_key=$API_KEY&language=en-US")
+    suspend fun rentMovie(@Path("movie_id") movieId: Int) : Rent
+
 }
 
 

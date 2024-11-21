@@ -13,8 +13,14 @@ class AddedListViewModel : ViewModel() {
     private val movieIdLiveData = MutableLiveData(0)
 
     private val _addedList = MutableLiveData<AddedList>()
-
     val addedList : MutableLiveData<AddedList> get() = _addedList
+
+    /*private val repository: MovieRepositoryImpl
+
+    init {
+        val movieDao = MovieRoomDatabase.getInstance(application).movieDao()
+        repository = MovieRepositoryImpl(MovieDBClient.movieDBInterface, movieDao)
+    }*/
 
     fun getAddedLists(movieId : Int){
         movieIdLiveData.value = movieId

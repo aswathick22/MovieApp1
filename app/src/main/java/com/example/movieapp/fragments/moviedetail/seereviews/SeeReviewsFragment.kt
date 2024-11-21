@@ -44,7 +44,11 @@ class SeeReviewsFragment : Fragment() {
             } else {
                 seeReviewsBinding.noReviewText.visibility = View.GONE
                 seeReviewsBinding.reviewsRecyclerview.visibility = View.VISIBLE
-                seeReviewsBinding.reviewsRecyclerview.layoutManager = LinearLayoutManager(context)
+                seeReviewsBinding.reviewsRecyclerview.layoutManager = context?.let {
+                    LinearLayoutManager(
+                        it
+                    )
+                }
                 seeReviewsBinding.reviewsRecyclerview.adapter = adapter
                 adapter.updateData(reviewDetails)
             }

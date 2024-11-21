@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.movieapp.database.DatabaseHandler
+import com.example.movieapp.database.SharedPreferencesManager
 import com.example.movieapp.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -48,8 +49,6 @@ class LoginFragment : Fragment() {
         }
 
         loginBinding.bnLogin.setOnClickListener {
-            /*loginViewModel.setUsername(loginBinding.etName.text.toString())
-            loginViewModel.setPassword(loginBinding.etPassword.text.toString())*/
             val enteredUsername = loginBinding.etName.text.toString()
             val password = loginBinding.etPassword.text.toString()
             loginViewModel.setUsername(enteredUsername)
@@ -65,6 +64,11 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
                     // Navigate to another fragment or activity
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToHomeFragment())
+                    val userId = dbHandler.getUserId(enteredUsername, password)
+                    if (userId != null) {
+                        context?.let { it1 -> SharedPreferencesManager.saveUserId(it1, userId) }
+                    }
+
                 } else {
                     // Login failed
                     Toast.makeText(requireContext(), "Invalid credentials", Toast.LENGTH_SHORT).show()
